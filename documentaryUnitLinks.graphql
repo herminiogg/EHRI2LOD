@@ -1,0 +1,18 @@
+{
+  documentaryUnits {
+    items {
+      id
+      type
+      related {
+        context {
+          id
+          description
+        }
+        item {
+          id
+          type
+        }
+      }
+    }
+  }
+}

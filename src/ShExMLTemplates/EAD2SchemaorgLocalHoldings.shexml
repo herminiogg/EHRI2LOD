@@ -1,0 +1,63 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+#TODO instutions with mixed paths
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+SOURCE holdings <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\holdings\holdings_*.json>
+
+ITERATOR components_iterator <jsonpath: $.data[*]> {
+	FIELD id <id>
+  	FIELD archived_at <relationships.holder.data.id>
+  	ITERATOR descriptions <attributes.descriptions[*]> {
+    	FIELD name <name>
+        FIELD abstract <scopeAndContent>
+        FIELD physdesc <extentAndMedium>
+        FIELD description <systemOfArrangement>
+        FIELD bioghist <biographicalHistory>
+        FIELD credit_text <acquisition>
+    	FIELD language_of_materials <languageOfMaterials>
+    }
+}
+
+
+EXPRESSION holding <holdings.components_iterator>
+
+AUTOINCREMENT person_id <"person_" + 0 to 99999999>
+AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
+AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
+AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
+AUTOINCREMENT location_id <"location" + 0 to 99999999>
+
+MATCHER languages <English AS Q1860 &
+	German AS Q188 &
+	Hebrew AS Q9288 >
+  
+MATCHER languages_codes <English AS eng &
+	German AS deu &
+	Hebrew AS heb >
+
+ehri:ArchiveComponent ehri_units:[holding.id] {
+  	a schema:ArchivalHolding ;
+    schema:name [holding.descriptions.name] ;
+  	schema:abstract [holding.descriptions.abstract] ;
+ 	schema:materialExtent [holding.descriptions.physdesc] ;
+  	schema:holdingArchive ehri_institution:[holding.archived_at] ;
+  	schema:text [holding.descriptions.bioghist] ;
+	schema:description [holding.descriptions.description] xs:string ;
+  	schema:creditText [holding.descriptions.credit_text] ;
+  	schema:inLanguage ehri:[holding.descriptions.language_of_materials];
+}
+   
+ehri:Language ehri:[holding.descriptions.language_of_materials] {
+   	a schema:Language ;
+   	schema:name [holding.descriptions.language_of_materials] ;
+   	schema:alternateName [holding.descriptions.language_of_materials MATCHING languages_codes] ;
+  	schema:sameAs wd:[holding.descriptions.language_of_materials MATCHING languages] ;
+}

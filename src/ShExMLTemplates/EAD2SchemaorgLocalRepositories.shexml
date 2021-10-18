@@ -1,0 +1,71 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+#TODO instutions with mixed paths
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+SOURCE repositories <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\institutions\institutions_*.json>
+
+ITERATOR repositories_iterator <jsonpath: $.data[*]> {
+	FIELD id <id>
+  	FIELD type <type>
+  	FIELD name <attributes.name>
+  	FIELD history <attributes.history>
+  	FIELD address_name <attributes.address.name>
+  	FIELD street_address <attributes.address.streetAddress>
+  	FIELD city <attributes.address.city>
+  	FIELD region <attributes.address.region>
+  	FIELD postal_code <attributes.address.postalCode>
+  	FIELD country <attributes.address.country>
+  	FIELD country_code <relationships.country.data.id>
+  	FIELD accesibility <attributes.address.accesibility>
+  	FIELD geo_type <attributes.geo.type>
+  	FIELD lat <attributes.geo.coordinates[0]>
+  	FIELD long <attributes.geo.coordinates[1]>
+  	FIELD telephone <attributes.address.telephone[*]>
+  	FIELD fax <attributes.address.fax[*]>
+  	FIELD url <attributes.address.url[*]>
+}
+
+EXPRESSION organization <repositories.repositories_iterator>
+
+AUTOINCREMENT person_id <"person_" + 0 to 99999999>
+AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
+AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
+AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
+AUTOINCREMENT location_id <"location" + 0 to 99999999>
+
+MATCHER languages <English AS Q1860 &
+	German AS Q188 &
+	Hebrew AS Q9288 >
+  
+MATCHER languages_codes <English AS eng &
+	German AS deu &
+	Hebrew AS heb >
+
+ehri:Institution ehri_institution:[organization.id] {
+	a schema:ArchiveOrganization ;
+  	schema:name [organization.name] ;
+  	schema:faxNumber [organization.fax] ;
+  	schema:telephone [organization.telephone] ;
+  	schema:latitude [organization.lat] ;
+  	schema:longitude [organization.long] ;
+  	schema:description [organization.history] ;
+  	schema:sameAs [organization.url] ;
+  	schema:location @ehri:InstitutionLocation ;
+}
+ 
+ehri:InstitutionLocation ehri:[location_id] {
+	a schema:PostalAddress ;
+  	schema:addressCountry ehri_country:[organization.country_code] ;
+  	schema:addressRegion [organization.region] ;
+  	schema:postalCode [organization.postal_code] ;
+  	schema:streetAddress [organization.street_address] ;
+  	schema:addressLocality [organization.city] ;
+}

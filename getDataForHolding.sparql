@@ -1,0 +1,10 @@
+PREFIX ehri_institutions: <https://data.ehri-project.eu/institutions/>
+PREFIX schema: <http://schema.org/>
+
+DESCRIBE ?subject ?location ?country
+WHERE {
+  ehri_institutions:be-002157 ?object ?location .
+  ?location schema:addressCountry ?country .
+  ?country a schema:Country .
+  BIND(ehri_institutions:be-002157 as ?subject)
+} 

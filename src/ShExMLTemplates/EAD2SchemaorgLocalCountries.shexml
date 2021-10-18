@@ -1,0 +1,32 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+#TODO instutions with mixed paths
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+SOURCE countries <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\countries\countries_*.json>
+
+ITERATOR countries_iterator <jsonpath: $.data[*]> {
+	FIELD id <id>
+  	FIELD type <type>
+  	FIELD name <attributes.name>
+  	FIELD history <attributes.history>
+  	FIELD situation <attributes.situation>
+  	FIELD summary <attributes.summary>
+  	FIELD extensive <attributes.extensive>
+}
+
+EXPRESSION country <countries.countries_iterator>
+
+
+ehri:Country ehri_country:[country.id] {
+	a schema:Country ;
+  	schema:name [country.name] ;
+  	#TODO schema:sameAs [];
+}
