@@ -23,6 +23,7 @@ shexml_second_part = r""".json>
 ITERATOR components_iterator <jsonpath: $.data[*]> {
 	FIELD id <id>
   	FIELD archived_at <relationships.holder.data.id>
+    FIELD parent <relationships.parent.data.id>
   	ITERATOR descriptions <attributes.descriptions[*]> {
     	FIELD name <name>
         FIELD abstract <scopeAndContent>
@@ -60,6 +61,7 @@ ehri:ArchiveComponent ehri_units:[holding.id] {
   	schema:text [holding.descriptions.bioghist] ;
 	schema:description [holding.descriptions.description] xs:string ;
   	schema:creditText [holding.descriptions.credit_text] ;
+    schema:isPartOf ehri_units:[holding.parent] ;
   	schema:inLanguage ehri:[holding.descriptions.language_of_materials];
 }
    
