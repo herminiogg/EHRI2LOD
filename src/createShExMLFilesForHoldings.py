@@ -2,6 +2,9 @@ import os
 import subprocess
 import sys
 import hashlib
+from multiprocessing import Pool
+import multiprocessing as mp
+from functools import partial
 
 shexml_first_part = r"""
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -73,6 +76,8 @@ ehri:Language ehri:[holding.descriptions.language_of_materials] {
 }
 """
 
+created_files = []
+
 def call_shexml(i, output_filename, hash_filename, content_filename):
     subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.2.6.jar", "-m", i, "-o", output_filename])
     md5 = hashlib.md5()
@@ -81,25 +86,7 @@ def call_shexml(i, output_filename, hash_filename, content_filename):
             md5.update(''.join(content_file.readlines()).encode())
             hash_file.write(md5.hexdigest())
 
-folder = sys.argv[1]
-
-print("Creating ShExML files for holdings in folder: " + folder)
-
-created_files = []
-
-index = 0
-for i in os.scandir(folder):
-    filename = "holdings_" + str(index + 1) + ".shexml"
-    f = open("./shexmlRules/" + filename, "w")
-    f.write(shexml_first_part + str(index + 1) + shexml_second_part)
-    f.close()
-    created_files.append("./shexmlRules/" + filename)
-    print("Created file " + filename)
-    index += 1
-
-print("Calling ShExML files...")
-
-for i in created_files:
+def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
     total = str(len(created_files))
     output_filename = "./shexmlOutput/holding_" + str(index + 1) + ".ttl"
@@ -117,6 +104,36 @@ for i in created_files:
                 call_shexml(i, output_filename, hash_filename, content_filename)
     else:
         call_shexml(i, output_filename, hash_filename, content_filename)
+
+
+
+if __name__ == '__main__':
+
+    folder = sys.argv[1]
+    parallel = sys.argv[2] if len(sys.argv) > 2 else None
+
+    print("Creating ShExML files for holdings in folder: " + folder)
+
+    index = 0
+    for i in os.scandir(folder):
+        filename = "holdings_" + str(index + 1) + ".shexml"
+        f = open("./shexmlRules/" + filename, "w")
+        f.write(shexml_first_part + str(index + 1) + shexml_second_part)
+        f.close()
+        created_files.append("./shexmlRules/" + filename)
+        print("Created file " + filename)
+        index += 1
+
+    print("Calling ShExML files...")
+    number_of_cpus = mp.cpu_count()
+
+    if parallel is not None and parallel == "--parallel":
+        with Pool(number_of_cpus) as p:
+            p.map(partial(convert_to_rdf, created_files=created_files, folder=folder), created_files)
+    else:
+        for i in created_files:
+            convert_to_rdf(i, created_files, folder)
+    
         
            
 
