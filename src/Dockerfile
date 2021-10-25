@@ -1,0 +1,14 @@
+FROM ubuntu
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update && apt install -y openjdk-17-jdk python2 curl git gcc python-dev
+RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+RUN python2 get-pip.py
+RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-4.2.0.tar.gz --output fuseki.tar.gz
+RUN tar -xvzf fuseki.tar.gz
+COPY docker/requirements.txt requirements.txt
+RUN git clone https://github.com/Data2Semantics/brwsr.git && pip2 install -r requirements.txt
+COPY docker/config.py brwsr/src/app/config.py
+COPY all.ttl all.ttl
+COPY docker/run.sh run.sh
+EXPOSE 3030 5000
+CMD sh run.sh
