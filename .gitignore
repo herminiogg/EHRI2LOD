@@ -1,20 +1,20 @@
 ### Specific for project
 src/countries/*
-!src/countries/.gitkeep
 src/holdings/*
-!src/holdings/.gitkeep
 src/holdings_hash/*
-!src/holdings_hash/.gitkeep
+src/terms/*
 src/institutions/*
-!src/institutions/.gitkeep
 src/shexmlOutput/*
-!src/shexmlOutput/.gitkeep
 src/shexmlRules/*
-"src/shexmlRules/.gitkeep
+src/shexmlOutputTerms/*
+src/shexmlRulesTerms/*
 src/holdings.ttl
 src/repositories.ttl
 src/institutions.ttl
 src/countries.ttl
+src/terms.ttl
+src/ehri-terms.ttl
+src/all.ttl
 
 ### Generic for Python
 

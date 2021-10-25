@@ -9,10 +9,11 @@ Have in mind that all the ShExML scripts use absolute paths, so you would have t
 2. Download all the files from the portal `$ python downloader.py`
 3. Convert countries and institutions to Turtle
 ```
-$ java -jar ShExML-v0.2.6.jar -m ShExMLTemplates\EAD2SchemaorgLocalCountries.shexml -o countries.ttl
+$ java -Dfile.encoding=UTF8 -jar ShExML-v0.2.6.jar -m ShExMLTemplates\EAD2SchemaorgLocalCountries.shexml -o countries.ttl
 
-$ java -jar ShExML-v0.2.6.jar -m ShExMLTemplates\EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
+$ java -Dfile.encoding=UTF8 -jar ShExML-v0.2.6.jar -m ShExMLTemplates\EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
 ```
 4. Convert the holdings to Turtle `$ python createShExMLFilesForHoldings.py holdings`
-5. Mix all the holdings in a single big Turtle file `$ sh createSingleFile.sh`
-6. Put prefixes in holdings.ttl, you can get them from any of the holdings_x.ttl file.
+5. Convert the terms to Turtle `$ python createShExMLFilesForTerms.py terms`
+6. Mix all the holdings in a single big Turtle file `$ sh createSingleFile.sh`
+7. Mix all the terms in a single big Turtle file `$ sh createSingleTermsFile.sh`

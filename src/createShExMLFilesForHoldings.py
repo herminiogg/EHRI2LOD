@@ -76,6 +76,44 @@ ehri:Language ehri:[holding.descriptions.language_of_materials] {
 }
 """
 
+shexml_terms_first_part = r"""
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+#TODO instutions with mixed paths
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\terms\terms_
+"""
+
+shexml_term_second_part = r""".json>
+
+ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
+	PUSHED_FIELD term_id <identifier>
+  	ITERATOR links <links[*]> {
+          FIELD fakefield <fakefield>
+          ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
+              FIELD unit_id <id>
+              POPPED_FIELD term_id <term_id>
+          }    
+      }
+}
+
+EXPRESSION term <terms.terms_iterator>
+
+ehri:Term ehri_units:[term.links.targets.unit_id] {
+  	schema:mentions ehri_terms:[term.links.targets.term_id] ;
+}
+"""
+
+
+
 created_files = []
 
 def call_shexml(i, output_filename, hash_filename, content_filename):

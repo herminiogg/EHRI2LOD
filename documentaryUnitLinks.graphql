@@ -16,3 +16,59 @@
     }
   }
 }
+
+{
+  vocabularies {
+    edges {
+      node {
+        id
+        itemCount
+        concepts {
+          items {
+            id
+            links {
+              targets("type": "") {
+                id
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query {
+  CvocVocabulary(id: "ehri_terms") {
+    id
+    concepts {
+      items {
+        id
+        links {
+          targets {
+            id
+            type
+          }
+        }
+      }
+    }
+  }
+}
+
+query {
+  CvocVocabulary(id: "ehri_terms") {
+    id
+    concepts {
+      items {
+        id
+        links {
+          targets {
+            id
+            type
+          }
+        }
+      }
+    }
+  }
+}

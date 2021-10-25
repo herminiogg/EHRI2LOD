@@ -5,7 +5,34 @@ from multiprocessing import Pool
 import multiprocessing as mp
 from functools import partial
 import sys
+import requests
 
+ehri_terms_query_start = """{
+  CvocVocabulary(id: "ehri_terms") {
+    id
+    concepts(after: \""""
+    
+ehri_terms_query_end = """\"){
+      items {
+        id
+        identifier
+        links {
+          targets {
+            id
+            type
+          }
+        }
+      }
+      pageInfo {
+        hasPreviousPage
+        previousPage
+        hasNextPage
+        nextPage
+      }
+    }
+  }
+}
+"""
 
 def get_number_of_pages(url):
     with urllib.request.urlopen(url) as response:
@@ -32,12 +59,31 @@ def download_by_page(i, type_name, url, pages):
     else:
         urllib.request.urlretrieve(final_url, filename)
 
+def download_from_graphql(type_name, url):
+    i = 1
+    after = ""
+    next_page = True
+    while next_page:
+        filename = type_name + "/" + type_name + "_" + str(i) + ".json"
+        final_query = ehri_terms_query_start + after + ehri_terms_query_end
+        json_query = {'query': final_query}
+        headers = {'Content-type': 'application/json'}
+        r = requests.post(url=url, json=json_query, headers=headers)
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(r.text)
+        json_content = r.text
+        data = json.loads(json_content)
+        next_page = data['data']['CvocVocabulary']['concepts']['pageInfo']['hasNextPage']
+        after = data['data']['CvocVocabulary']['concepts']['pageInfo']['nextPage']
+        i += 1
+
 if __name__ == '__main__':
     print("Downloading contents from the EHRI portal API")
 
     countries_url = "https://portal.ehri-project.eu/api/v1/search?type=country&limit=100"
     institutions_url = "https://portal.ehri-project.eu/api/v1/search?type=Repository&limit=100"
     holdings_url = "https://portal.ehri-project.eu/api/v1/search?type=DocumentaryUnit&limit=100"
+    grapql_url = "https://portal.ehri-project.eu/api/graphql"
 
     countries_pages = get_number_of_pages(countries_url)
     institutions_pages = get_number_of_pages(institutions_url)
@@ -51,3 +97,8 @@ if __name__ == '__main__':
 
     print("Downloading holdings...")
     download_content_to_disk("holdings", holdings_url, holdings_pages)
+    
+    print("Downloading EHRI terms and links...")
+    download_from_graphql("terms", grapql_url)
+
+    
