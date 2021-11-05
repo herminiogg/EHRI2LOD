@@ -7,3 +7,9 @@ mkdir shexmlRules
 mkdir terms
 mkdir shexmlOutputTerms
 mkdir shexmlRulesTerms
+mkdir ghettos
+mkdir shexmlOutputGhettos
+mkdir shexmlRulesGhettos
+mkdir camps
+mkdir shexmlOutputCamps
+mkdir shexmlRulesCamps

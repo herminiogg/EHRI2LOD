@@ -3,17 +3,27 @@ src/countries/*
 src/holdings/*
 src/holdings_hash/*
 src/terms/*
+src/camps/*
+src/ghettos/*
 src/institutions/*
 src/shexmlOutput/*
 src/shexmlRules/*
 src/shexmlOutputTerms/*
 src/shexmlRulesTerms/*
+src/shexmlOutputCamps/*
+src/shexmlRulesCamps/*
+src/shexmlOutputGhettos/*
+src/shexmlRulesGhettos/*
 src/holdings.ttl
 src/repositories.ttl
 src/institutions.ttl
 src/countries.ttl
 src/terms.ttl
+src/camps.ttl
+src/ghettos.ttl
 src/ehri-terms.ttl
+src/ehri-camps.ttl
+src/ehri-ghettos.ttl
 src/all.ttl
 
 ### Generic for Python

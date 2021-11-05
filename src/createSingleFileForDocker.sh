@@ -1,4 +1,6 @@
 curl https://portal.ehri-project.eu/vocabularies/ehri_terms/export?format=TTL > ehri-terms.ttl
+curl https://portal.ehri-project.eu/vocabularies/ehri_camps/export?format=TTL > ehri-camps.ttl
+curl https://portal.ehri-project.eu/vocabularies/ehri_ghettos/export?format=TTL > ehri-ghettos.ttl
 
 rm all.ttl
 
@@ -14,6 +16,8 @@ sed -i "1i\@prefix dbr:   <http://dbpedia.org/resource/> ." all.ttl
 sed -i "1i\@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> ." all.ttl
 sed -i "1i\@prefix ehri_country: <https://data.ehri-project.eu/countries/> ." all.ttl
 sed -i "1i\@prefix ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/> ." all.ttl
+sed -i "1i\@prefix ehri_camps: <http://data.ehri-project.eu/vocabularies/ehri-camps/> ." all.ttl
+sed -i "1i\@prefix ehri_ghettos: <http://data.ehri-project.eu/vocabularies/ehri-ghettos/> ." all.ttl
 sed -i "1i\@prefix xs:    <http://www.w3.org/2001/XMLSchema#> ." all.ttl
 sed -i "1i\@prefix wd:    <http://www.wikidata.org/entity/> ." all.ttl
 sed -i "1i\@prefix geo:     <http://www.w3.org/2003/01/geo/wgs84_pos#> ." all.ttl

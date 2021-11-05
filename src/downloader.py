@@ -8,7 +8,9 @@ import sys
 import requests
 
 ehri_terms_query_start = """{
-  CvocVocabulary(id: "ehri_terms") {
+  CvocVocabulary(id: \""""
+
+ehri_terms_query_middle = """\") {
     id
     concepts(after: \""""
     
@@ -59,13 +61,13 @@ def download_by_page(i, type_name, url, pages):
     else:
         urllib.request.urlretrieve(final_url, filename)
 
-def download_from_graphql(type_name, url):
+def download_from_graphql(type_name, url, graphql_type_name):
     i = 1
     after = ""
     next_page = True
     while next_page:
         filename = type_name + "/" + type_name + "_" + str(i) + ".json"
-        final_query = ehri_terms_query_start + after + ehri_terms_query_end
+        final_query = ehri_terms_query_start + graphql_type_name + ehri_terms_query_middle + after + ehri_terms_query_end
         json_query = {'query': final_query}
         headers = {'Content-type': 'application/json'}
         r = requests.post(url=url, json=json_query, headers=headers)
@@ -99,6 +101,12 @@ if __name__ == '__main__':
     download_content_to_disk("holdings", holdings_url, holdings_pages)
     
     print("Downloading EHRI terms and links...")
-    download_from_graphql("terms", grapql_url)
+    download_from_graphql("terms", grapql_url, "ehri_terms")
+
+    print("Downloading EHRI ghettos and links...")
+    download_from_graphql("ghettos", grapql_url, "ehri_ghettos")
+
+    print("Downloading EHRI camps and links...")
+    download_from_graphql("camps", grapql_url, "ehri_camps")
 
     
