@@ -7,13 +7,6 @@ from functools import partial
 import sys
 import requests
 
-ehri_terms_query_start = """{
-  CvocVocabulary(id: \""""
-
-ehri_terms_query_middle = """\") {
-    id
-    concepts(after: \""""
-    
 ehri_terms_query_end = """\"){
       items {
         id
@@ -33,8 +26,58 @@ ehri_terms_query_end = """\"){
       }
     }
   }
-}
-"""
+}"""
+
+ehri_terms_query_start = """{
+  CvocVocabulary(id: \""""
+
+ehri_terms_query_middle = """\") {
+    id
+    concepts(after: \""""
+    
+ehri_historical_query_end = """\") {
+      items {
+          id
+          identifier
+          description {
+            languageCode
+            name
+            identifier
+            lastName
+            firstName
+            source
+            typeOfEntity
+            datesOfExistence
+            biographicalHistory
+            legalStatus
+            structure
+            generalContext
+            occupation
+            otherFormsOfName
+            parallelFormsOfName
+          }
+          links {
+            targets {
+              id
+              type
+            }
+          }
+      }
+      pageInfo {
+        hasPreviousPage
+        previousPage
+        hasNextPage
+        nextPage
+  		}
+    }
+  }
+}"""
+
+ehri_historical_query_start = """{
+  AuthoritativeSet(id: \"ehri_pers\") {
+    authorities(after: \""""
+
+
 
 def get_number_of_pages(url):
     with urllib.request.urlopen(url) as response:
@@ -61,13 +104,13 @@ def download_by_page(i, type_name, url, pages):
     else:
         urllib.request.urlretrieve(final_url, filename)
 
-def download_from_graphql(type_name, url, graphql_type_name):
+def download_from_graphql(type_name, url, query_start, query_end):
     i = 1
     after = ""
     next_page = True
     while next_page:
         filename = type_name + "/" + type_name + "_" + str(i) + ".json"
-        final_query = ehri_terms_query_start + graphql_type_name + ehri_terms_query_middle + after + ehri_terms_query_end
+        final_query = query_start + after + query_end
         json_query = {'query': final_query}
         headers = {'Content-type': 'application/json'}
         r = requests.post(url=url, json=json_query, headers=headers)
@@ -75,8 +118,12 @@ def download_from_graphql(type_name, url, graphql_type_name):
             file.write(r.text)
         json_content = r.text
         data = json.loads(json_content)
-        next_page = data['data']['CvocVocabulary']['concepts']['pageInfo']['hasNextPage']
-        after = data['data']['CvocVocabulary']['concepts']['pageInfo']['nextPage']
+        if 'CvocVocabulary' in data['data']:
+          next_page = data['data']['CvocVocabulary']['concepts']['pageInfo']['hasNextPage']
+          after = data['data']['CvocVocabulary']['concepts']['pageInfo']['nextPage']
+        else:
+          next_page = data['data']['AuthoritativeSet']['authorities']['pageInfo']['hasNextPage']
+          after = data['data']['AuthoritativeSet']['authorities']['pageInfo']['nextPage']
         i += 1
 
 if __name__ == '__main__':
@@ -92,21 +139,27 @@ if __name__ == '__main__':
     holdings_pages = get_number_of_pages(holdings_url)
 
     print("Downloading countries...")
-    download_content_to_disk("countries", countries_url, countries_pages)
+    #download_content_to_disk("countries", countries_url, countries_pages)
 
     print("Downloading institutions...")
-    download_content_to_disk("institutions", institutions_url, institutions_pages)
+    #download_content_to_disk("institutions", institutions_url, institutions_pages)
 
     print("Downloading holdings...")
-    download_content_to_disk("holdings", holdings_url, holdings_pages)
+    #download_content_to_disk("holdings", holdings_url, holdings_pages)
     
     print("Downloading EHRI terms and links...")
-    download_from_graphql("terms", grapql_url, "ehri_terms")
+    query_start = ehri_terms_query_start + "ehri_terms" + ehri_terms_query_middle
+    download_from_graphql("terms", grapql_url, query_start, ehri_terms_query_end)
 
     print("Downloading EHRI ghettos and links...")
-    download_from_graphql("ghettos", grapql_url, "ehri_ghettos")
+    query_start = ehri_terms_query_start + "ehri_ghettos" + ehri_terms_query_middle
+    download_from_graphql("ghettos", grapql_url, query_start, ehri_terms_query_end)
 
     print("Downloading EHRI camps and links...")
-    download_from_graphql("camps", grapql_url, "ehri_camps")
+    query_start = ehri_terms_query_start + "ehri_camps" + ehri_terms_query_middle
+    download_from_graphql("camps", grapql_url, query_start, ehri_terms_query_end)
+
+    print("Downloading EHRI people...")
+    download_from_graphql("people", grapql_url, ehri_historical_query_start, ehri_historical_query_end)
 
     

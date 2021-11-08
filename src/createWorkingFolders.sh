@@ -13,3 +13,6 @@ mkdir shexmlRulesGhettos
 mkdir camps
 mkdir shexmlOutputCamps
 mkdir shexmlRulesCamps
+mkdir people
+mkdir shexmlOutputPeople
+mkdir shexmlRulesPeople
