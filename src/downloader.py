@@ -139,13 +139,13 @@ if __name__ == '__main__':
     holdings_pages = get_number_of_pages(holdings_url)
 
     print("Downloading countries...")
-    #download_content_to_disk("countries", countries_url, countries_pages)
+    download_content_to_disk("countries", countries_url, countries_pages)
 
     print("Downloading institutions...")
-    #download_content_to_disk("institutions", institutions_url, institutions_pages)
+    download_content_to_disk("institutions", institutions_url, institutions_pages)
 
     print("Downloading holdings...")
-    #download_content_to_disk("holdings", holdings_url, holdings_pages)
+    download_content_to_disk("holdings", holdings_url, holdings_pages)
     
     print("Downloading EHRI terms and links...")
     query_start = ehri_terms_query_start + "ehri_terms" + ehri_terms_query_middle
@@ -161,5 +161,3 @@ if __name__ == '__main__':
 
     print("Downloading EHRI people...")
     download_from_graphql("people", grapql_url, ehri_historical_query_start, ehri_historical_query_end)
-
-    
