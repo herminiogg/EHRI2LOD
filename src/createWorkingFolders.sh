@@ -16,3 +16,6 @@ mkdir shexmlRulesCamps
 mkdir people
 mkdir shexmlOutputPeople
 mkdir shexmlRulesPeople
+mkdir cb
+mkdir shexmlOutputCb
+mkdir shexmlRulesCb

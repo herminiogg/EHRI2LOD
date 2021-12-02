@@ -74,7 +74,9 @@ ehri_historical_query_end = """\") {
 }"""
 
 ehri_historical_query_start = """{
-  AuthoritativeSet(id: \"ehri_pers\") {
+  AuthoritativeSet(id: \""""
+  
+ehri_historical_query_middle = """\") {
     authorities(after: \""""
 
 
@@ -160,4 +162,10 @@ if __name__ == '__main__':
     download_from_graphql("camps", grapql_url, query_start, ehri_terms_query_end)
 
     print("Downloading EHRI people...")
-    download_from_graphql("people", grapql_url, ehri_historical_query_start, ehri_historical_query_end)
+    query_start = ehri_historical_query_start + "ehri_pers" + ehri_historical_query_middle
+    download_from_graphql("people", grapql_url, query_start, ehri_historical_query_end)
+
+    print("Downloading EHRI corporate bodies...")
+    query_start = ehri_historical_query_start + "ehri_cb" + ehri_historical_query_middle
+    download_from_graphql("cb", grapql_url, query_start, ehri_historical_query_end)
+

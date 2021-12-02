@@ -2,6 +2,10 @@ curl https://portal.ehri-project.eu/vocabularies/ehri_terms/export?format=TTL > 
 curl https://portal.ehri-project.eu/vocabularies/ehri_camps/export?format=TTL > ehri-camps.ttl
 curl https://portal.ehri-project.eu/vocabularies/ehri_ghettos/export?format=TTL > ehri-ghettos.ttl
 
+sed -i 's/http:\/\/data.ehri-project.eu/https:\/\/data.ehri-project.eu/g' ehri-terms.ttl
+sed -i 's/http:\/\/data.ehri-project.eu/https:\/\/data.ehri-project.eu/g' ehri-camps.ttl
+sed -i 's/http:\/\/data.ehri-project.eu/https:\/\/data.ehri-project.eu/g' ehri-ghettos.ttl
+
 rm all.ttl
 
 cat *.ttl > all.ttl
@@ -15,10 +19,11 @@ sed -i "1i\@prefix ehri:  <https://data.ehri-project.eu/> ." all.ttl
 sed -i "1i\@prefix dbr:   <http://dbpedia.org/resource/> ." all.ttl
 sed -i "1i\@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> ." all.ttl
 sed -i "1i\@prefix ehri_country: <https://data.ehri-project.eu/countries/> ." all.ttl
-sed -i "1i\@prefix ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/> ." all.ttl
-sed -i "1i\@prefix ehri_camps: <http://data.ehri-project.eu/vocabularies/ehri-camps/> ." all.ttl
-sed -i "1i\@prefix ehri_ghettos: <http://data.ehri-project.eu/vocabularies/ehri-ghettos/> ." all.ttl
-sed -i "1i\@prefix ehri_pers: <http://data.ehri-project.eu/vocabularies/ehri-pers/> ." all.ttl
+sed -i "1i\@prefix ehri_terms: <https://data.ehri-project.eu/vocabularies/ehri-terms/> ." all.ttl
+sed -i "1i\@prefix ehri_camps: <https://data.ehri-project.eu/vocabularies/ehri-camps/> ." all.ttl
+sed -i "1i\@prefix ehri_ghettos: <https://data.ehri-project.eu/vocabularies/ehri-ghettos/> ." all.ttl
+sed -i "1i\@prefix ehri_pers: <https://data.ehri-project.eu/vocabularies/ehri-pers/> ." all.ttl
+sed -i "1i\@prefix ehri_cb: <https://data.ehri-project.eu/vocabularies/ehri-cb/> ." all.ttl
 sed -i "1i\@prefix xs:    <http://www.w3.org/2001/XMLSchema#> ." all.ttl
 sed -i "1i\@prefix wd:    <http://www.wikidata.org/entity/> ." all.ttl
 sed -i "1i\@prefix geo:     <http://www.w3.org/2003/01/geo/wgs84_pos#> ." all.ttl

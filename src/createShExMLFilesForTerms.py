@@ -15,7 +15,7 @@ PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
 #TODO instutions with mixed paths
 PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
 PREFIX ehri_units: <https://data.ehri-project.eu/units/>
-PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX ehri_terms: <https://data.ehri-project.eu/vocabularies/ehri-terms/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
@@ -77,7 +77,7 @@ if __name__ == '__main__':
         index += 1
 
     print("Calling ShExML files...")
-    number_of_cpus = mp.cpu_count()
+    number_of_cpus = mp.cpu_count() // 2
 
     if parallel is not None and parallel == "--parallel":
         with Pool(number_of_cpus) as p:
