@@ -1,0 +1,200 @@
+MATCHER languages <"Mandarin Chinese" AS Q9192 
+& "English" AS Q1860 
+& "Spanish" AS Q1321 
+& "English" AS Q1860 
+& "Hindi" AS Q1568 
+& "Arabic" AS Q13955 
+& "Hindi" AS Q1568 
+& "Hindi" AS Q1568 
+& "Portuguese" AS Q5146 
+& "Bengali" AS Q9610 
+& "Fula" AS Q33454 
+& "French" AS Q150 
+& "Portuguese" AS Q5146 
+& "Indonesian" AS Q9240 
+& "Bengali" AS Q9610 
+& "Russian" AS Q7737 
+& "Russian" AS Q7737 
+& "Japanese" AS Q5287 
+& "Hindi" AS Q1568 
+& "Punjabi" AS Q58635 
+& "Russian" AS Q7737 
+& "Russian" AS Q7737 
+& "Bengali" AS Q9610 
+& "German" AS Q188 
+& "Vietnamese" AS Q9199 
+& "Urdu" AS Q1617 
+& "Western Punjabi" AS Q1389492 
+& "Javanese" AS Q33549 
+& "Swahili" AS Q3197533 
+& "Turkish" AS Q256 
+& "Wu Chinese" AS Q34290 
+& "German" AS Q188 
+& "Hausa" AS Q56475 
+& "Marathi" AS Q1571 
+& "Malay" AS Q9237 
+& "French" AS Q150 
+& "German" AS Q188 
+& "Telugu" AS Q8097 
+& "Korean" AS Q9176 
+& "Marathi" AS Q1571 
+& "Cantonese" AS Q9186 
+& "Marathi" AS Q1571 
+& "Urdu" AS Q1617 
+& "Vietnamese" AS Q9199 
+& "Tamil" AS Q5885 
+& "Italian" AS Q652 
+& "Yue Chinese" AS Q7033959 
+& "German" AS Q188 
+& "Persian" AS Q9168 
+& "Telugu" AS Q8097 
+& "Pashto" AS Q58680 
+& "Southern Min" AS Q36495 
+& "Nigerian Pidgin" AS Q33655 
+& "Gujarati" AS Q5137 
+& "Romani" AS Q13201 
+& "Tagalog" AS Q34057 
+& "Jin Chinese" AS Q56479 
+& "Kannada" AS Q33673 
+& "Kannada" AS Q33673 
+& "Thai" AS Q9217 
+& "Yoruba" AS Q34311 
+& "Polish" AS Q809 
+& "Pashto" AS Q58680 
+& "Awadhi" AS Q29579 
+& "Bhojpuri" AS Q33268 
+& "Rajasthani" AS Q13196 
+& "Xiang" AS Q13220 
+& "Oromo" AS Q33864 
+& "Azerbaijani" AS Q9292 
+& "Algerian Arabic" AS Q56499 
+& "Ukrainian" AS Q8798 
+& "Maithili" AS Q36109 
+& "Odia" AS Q33810 
+& "Burmese" AS Q9228 
+& "Gan" AS Q33475 
+& "Kurdish" AS Q36368 
+& "Hakka" AS Q33375 
+& "Malayalam" AS Q36236 
+& "Moroccan Arabic" AS Q56426 
+& "Tagalog" AS Q34057 
+& "Uzbek" AS Q9264 
+& "Sundanese" AS Q34002 
+& "Somali" AS Q13275 
+& "Malaysian" AS Q15065 
+& "Amharic" AS Q28244 
+& "Sindhi" AS Q33997 
+& "North Levantine Arabic" AS Q22809485 
+& "Nepali" AS Q33823 
+& "Dutch" AS Q7411 
+& "Romanian" AS Q7913 
+& "Serbo Croatian" AS Q9301 
+& "Fula" AS Q33454 
+& "Tagalog" AS Q34057 
+& "Sindhi" AS Q33997 
+& "Sindhi" AS Q33997 
+& "Thai" AS Q9217 
+& "Saraiki" AS Q33902 
+& "Cebuano" AS Q33239 
+& "Rajasthani" AS Q13196 
+& "Bengali" AS Q9610 
+& "Bengali" AS Q9610 
+& "Malagasy" AS Q7930 
+& "Malagasy" AS Q7930 
+& "Igbo" AS Q33578 
+& "Malagasy" AS Q7930 
+& "Assamese" AS Q29401 
+& "Chhattisgarhi" AS Q33158 
+& "Nepali" AS Q33823 
+& "Khmer" AS Q9205 
+& "Swahili" AS Q3197533 
+& "Sinhala" AS Q13267 
+& "Zulu" AS Q10179 
+& "Nepali" AS Q33823 
+& "Swahili" AS Q7838 
+& "Isan" AS Q33417 
+& "Kurmanji" AS Q36163 
+& "Modern Greek" AS Q36510 
+& "South Azerbaijani" AS Q3449805 
+& "Bavarian" AS Q29540 
+& "Tajik" AS Q9260 
+& "Zhuang" AS Q13216 
+& "Maithili" AS Q36109 
+& "Kazakh" AS Q9252 
+& "Greek" AS Q9129 
+& "Chittagonian" AS Q33173 
+& "Magahi" AS Q33728 
+& "Tsonga" AS Q34327 
+& "Rajasthani" AS Q13196 
+& "Chewa" AS Q33273 
+& "Haitian Creole" AS Q33491 
+& "Zulu" AS Q10179 
+& "Nepali" AS Q33823 
+& "Czech" AS Q9056 
+& "Tunisian Arabic" AS Q56240 
+& "Xhosa" AS Q13218 
+& "Dakhini" AS Q669431 
+& "Sylheti" AS Q2044560 
+& "Uyghur" AS Q13263 
+& "Afrikaans" AS Q14196 
+& "Min Bei" AS Q36457 
+& "Burmese" AS Q9228 
+& "Malvi" AS Q33413 
+& "Alemannic" AS Q131339 
+& "Kinyarwanda" AS Q33573 
+& "Dari" AS Q178440 
+& "Chewa" AS Q33273 
+& "Swedish" AS Q9027 
+& "North Azerbaijani" AS Q3515311 
+& "Min Dong" AS Q36455 
+& "Congo Swahili" AS Q10961696 
+& "Shona" AS Q34004 
+& "Bulgarian" AS Q7918 
+& "Hebrew" AS Q9288 
+& "Serbian" AS Q9299 
+& "Kirundi" AS Q33583 
+& "Nepali" AS Q33823 
+& "Akan" AS Q28026 
+& "Xhosa" AS Q13218 
+& "Tamil" AS Q5885 
+& "Tamazight" AS Q34152 
+& "Bagheli" AS Q2356364 
+& "Belarusian" AS Q9091 
+& "Xhosa" AS Q13218 
+& "Marwari (India)" AS Q65455884 
+& "Marwari (India)" AS Q65455884 
+& "Marwari (India)" AS Q65455884 
+& "Quechua" AS Q5218 
+& "Tigrinya" AS Q34124 
+& "Neapolitan" AS Q33845 
+& "Makhuwa" AS Q33882 
+& "Sorani" AS Q36811 
+& "Afrikaans" AS Q14196 
+& "Croatian" AS Q6654 
+& "Mongolian" AS Q9246 
+& "Ilocano" AS Q35936 
+& "Turkmen" AS Q9267 
+& "Kashmiri" AS Q33552 
+& "Gikuyu" AS Q33587 
+& "Portuguese" AS Q5146 
+& "Luba Kasai" AS Q34173 
+& "Albanian" AS Q8748 
+& "Hijazi Arabic" AS Q56608 
+& "Northern Thai" AS Q565110 
+& "Danish" AS Q9035 
+& "Slovak" AS Q9058 
+& "Lambadi" AS Q33474 
+& "Santali" AS Q33965 
+& "Sesotho" AS Q34340 
+& "Umbundu" AS Q36983 
+& "Northern Thai" AS Q565110 
+& "Turkish" AS Q256 
+& "Tigrinya" AS Q34124 
+& "Hiligaynon" AS Q35978 
+& "Danish" AS Q9035 
+& "Kabyle" AS Q35853 
+& "Minangkabau" AS Q13324 
+& "Danish" AS Q9035 
+& "Sukuma" AS Q2638144 
+& "Tatar" AS Q25285 
+& "Finnish" AS Q1412 & "Latin" AS Q397>

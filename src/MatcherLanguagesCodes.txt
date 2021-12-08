@@ -1,0 +1,200 @@
+MATCHER languages_codes <"Mandarin Chinese" AS cmn &
+"English" AS eng &
+"Spanish" AS spa &
+"English" AS eng &
+"Hindi" AS hin &
+"Arabic" AS ara &
+"Hindi" AS hin &
+"Hindi" AS hin &
+"Portuguese" AS por &
+"Bengali" AS ben &
+"Fula" AS ful &
+"French" AS fra &
+"Portuguese" AS por &
+"Indonesian" AS ind &
+"Bengali" AS ben &
+"Russian" AS rus &
+"Russian" AS rus &
+"Japanese" AS jpn &
+"Hindi" AS hin &
+"Punjabi" AS pan &
+"Russian" AS rus &
+"Russian" AS rus &
+"Bengali" AS ben &
+"German" AS deu &
+"Vietnamese" AS vie &
+"Urdu" AS urd &
+"Western Punjabi" AS pnb &
+"Javanese" AS jav &
+"Swahili" AS swh &
+"Turkish" AS tur &
+"Wu Chinese" AS wuu &
+"German" AS deu &
+"Hausa" AS hau &
+"Marathi" AS mar &
+"Malay" AS msa &
+"French" AS fra &
+"German" AS deu &
+"Telugu" AS tel &
+"Korean" AS kor &
+"Marathi" AS mar &
+"Cantonese" AS yue &
+"Marathi" AS mar &
+"Urdu" AS urd &
+"Vietnamese" AS vie &
+"Tamil" AS tam &
+"Italian" AS ita &
+"Yue Chinese" AS yue &
+"German" AS deu &
+"Persian" AS fas &
+"Telugu" AS tel &
+"Pashto" AS pus &
+"Southern Min" AS nan &
+"Nigerian Pidgin" AS pcm &
+"Gujarati" AS guj &
+"Romani" AS rom &
+"Tagalog" AS tgl &
+"Jin Chinese" AS cjy &
+"Kannada" AS kan &
+"Kannada" AS kan &
+"Thai" AS tha &
+"Yoruba" AS yor &
+"Polish" AS pol &
+"Pashto" AS pus &
+"Awadhi" AS awa &
+"Bhojpuri" AS bho &
+"Rajasthani" AS raj &
+"Xiang" AS hsn &
+"Oromo" AS orm &
+"Azerbaijani" AS aze &
+"Algerian Arabic" AS arq &
+"Ukrainian" AS ukr &
+"Maithili" AS mai &
+"Odia" AS ory &
+"Burmese" AS mya &
+"Gan" AS gan &
+"Kurdish" AS kur &
+"Hakka" AS hak &
+"Malayalam" AS mal &
+"Moroccan Arabic" AS ary &
+"Tagalog" AS tgl &
+"Uzbek" AS uzb &
+"Sundanese" AS sun &
+"Somali" AS som &
+"Malaysian" AS zsm &
+"Amharic" AS amh &
+"Sindhi" AS snd &
+"North Levantine Arabic" AS apc &
+"Nepali" AS nep &
+"Dutch" AS nld &
+"Romanian" AS ron &
+"Serbo Croatian" AS hbs &
+"Fula" AS ful &
+"Tagalog" AS tgl &
+"Sindhi" AS snd &
+"Sindhi" AS snd &
+"Thai" AS tha &
+"Saraiki" AS skr &
+"Cebuano" AS ceb &
+"Rajasthani" AS raj &
+"Bengali" AS ben &
+"Bengali" AS ben &
+"Malagasy" AS mlg &
+"Malagasy" AS mlg &
+"Igbo" AS ibo &
+"Malagasy" AS mlg &
+"Assamese" AS asm &
+"Chhattisgarhi" AS hne &
+"Nepali" AS nep &
+"Khmer" AS khm &
+"Swahili" AS swh &
+"Sinhala" AS sin &
+"Zulu" AS zul &
+"Nepali" AS nep &
+"Swahili" AS swa &
+"Isan" AS tts &
+"Kurmanji" AS kmr &
+"Modern Greek" AS ell &
+"South Azerbaijani" AS azb &
+"Bavarian" AS bar &
+"Tajik" AS tgk &
+"Zhuang" AS zha &
+"Maithili" AS mai &
+"Kazakh" AS kaz &
+"Greek" AS ell &
+"Chittagonian" AS ctg &
+"Magahi" AS mag &
+"Tsonga" AS tso &
+"Rajasthani" AS raj &
+"Chewa" AS nya &
+"Haitian Creole" AS hat &
+"Zulu" AS zul &
+"Nepali" AS nep &
+"Czech" AS ces &
+"Tunisian Arabic" AS aeb &
+"Xhosa" AS xho &
+"Dakhini" AS dcc &
+"Sylheti" AS syl &
+"Uyghur" AS uig &
+"Afrikaans" AS afr &
+"Min Bei" AS mnp &
+"Burmese" AS mya &
+"Malvi" AS mup &
+"Alemannic" AS gsw &
+"Kinyarwanda" AS kin &
+"Dari" AS prs &
+"Chewa" AS nya &
+"Swedish" AS swe &
+"North Azerbaijani" AS azj &
+"Min Dong" AS cdo &
+"Congo Swahili" AS swc &
+"Shona" AS sna &
+"Bulgarian" AS bul &
+"Hebrew" AS heb &
+"Serbian" AS srp &
+"Kirundi" AS run &
+"Nepali" AS nep &
+"Akan" AS aka &
+"Xhosa" AS xho &
+"Tamil" AS tam &
+"Tamazight" AS shi &
+"Bagheli" AS bfy &
+"Belarusian" AS bel &
+"Xhosa" AS xho &
+"Marwari (India)" AS rwr &
+"Marwari (India)" AS rwr &
+"Marwari (India)" AS rwr &
+"Quechua" AS que &
+"Tigrinya" AS tir &
+"Neapolitan" AS nap &
+"Makhuwa" AS vmw &
+"Sorani" AS ckb &
+"Afrikaans" AS afr &
+"Croatian" AS hrv &
+"Mongolian" AS mon &
+"Ilocano" AS ilo &
+"Turkmen" AS tuk &
+"Kashmiri" AS kas &
+"Gikuyu" AS kik &
+"Portuguese" AS por &
+"Luba Kasai" AS lua &
+"Albanian" AS sqi &
+"Hijazi Arabic" AS acw &
+"Northern Thai" AS nod &
+"Danish" AS dan &
+"Slovak" AS slk &
+"Lambadi" AS lmn &
+"Santali" AS sat &
+"Sesotho" AS sot &
+"Umbundu" AS umb &
+"Northern Thai" AS nod &
+"Turkish" AS tur &
+"Tigrinya" AS tir &
+"Hiligaynon" AS hil &
+"Danish" AS dan &
+"Kabyle" AS kab &
+"Minangkabau" AS min &
+"Danish" AS dan &
+"Sukuma" AS suk &
+"Tatar" AS tat &
+"Finnish" AS fin & "Latin" AS lat>

@@ -46,17 +46,12 @@ AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
 AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
 AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
 AUTOINCREMENT location_id <"location" + 0 to 99999999>
+"""
 
-MATCHER languages <English AS Q1860 &
-	German AS Q188 &
-	Hebrew AS Q9288 >
-  
-MATCHER languages_codes <English AS eng &
-	German AS deu &
-	Hebrew AS heb >
 
+shexml_third_part = r"""
 ehri:ArchiveComponent ehri_units:[holding.id] {
-  	a schema:ArchivalHolding ;
+  	a schema:ArchiveComponent ;
     schema:name [holding.descriptions.name] ;
   	schema:abstract [holding.descriptions.abstract] ;
  	schema:materialExtent [holding.descriptions.physdesc] ;
@@ -143,6 +138,13 @@ def convert_to_rdf(i, created_files, folder):
     else:
         call_shexml(i, output_filename, hash_filename, content_filename)
 
+def get_matcher_contents():
+    matchers = ""
+    with open("MatcherLanguagesCodes.txt", "r", encoding="utf-8") as content:
+        matchers += ''.join(content.readlines()) + "\n"
+    with open("MatcherLanguages.txt", "r", encoding="utf-8") as content:
+        matchers += ''.join(content.readlines()) + "\n"
+    return matchers
 
 
 if __name__ == '__main__':
@@ -155,8 +157,8 @@ if __name__ == '__main__':
     index = 0
     for i in os.scandir(folder):
         filename = "holdings_" + str(index + 1) + ".shexml"
-        f = open("./shexmlRules/" + filename, "w")
-        f.write(shexml_first_part + str(index + 1) + shexml_second_part)
+        f = open("./shexmlRules/" + filename, "w", encoding="utf-8")
+        f.write(shexml_first_part + str(index + 1) + shexml_second_part + get_matcher_contents() + shexml_third_part)
         f.close()
         created_files.append("./shexmlRules/" + filename)
         print("Created file " + filename)
