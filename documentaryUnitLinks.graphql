@@ -72,3 +72,109 @@ query {
     }
   }
 }
+
+query {
+  historicalAgents {
+    items {
+      id
+      identifier
+      links {
+        targets {
+          id
+          type
+        }
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+  	}
+  }
+}
+
+query {
+  authoritativeSets(after: "") {
+    items {
+      id
+      identifier
+      authorities {
+        items {
+          id
+          identifier
+          description {
+            languageCode
+            name
+            identifier
+            lastName
+            firstName
+            source
+            typeOfEntity
+            datesOfExistence
+            biographicalHistory
+            legalStatus
+            structure
+            generalContext
+            occupation
+            otherFormsOfName
+            parallelFormsOfName
+          }
+          links {
+            targets {
+              id
+              type
+            }
+          }
+      }
+    }
+    }  
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+  	}
+  }
+}    
+
+
+query {
+  AuthoritativeSet(id: "ehri_pers") {
+    authorities(after: "") {
+      items {
+          id
+          identifier
+          description {
+            languageCode
+            name
+            identifier
+            lastName
+            firstName
+            source
+            typeOfEntity
+            datesOfExistence
+            biographicalHistory
+            legalStatus
+            structure
+            generalContext
+            occupation
+            otherFormsOfName
+            parallelFormsOfName
+          }
+          links {
+            targets {
+              id
+              type
+            }
+          }
+      }
+      pageInfo {
+        hasPreviousPage
+        previousPage
+        hasNextPage
+        nextPage
+  		}
+    } 
+  }
+}   

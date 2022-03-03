@@ -5,6 +5,8 @@ src/holdings_hash/*
 src/terms/*
 src/camps/*
 src/ghettos/*
+src/people/*
+src/cb/*
 src/institutions/*
 src/shexmlOutput/*
 src/shexmlRules/*
@@ -14,6 +16,10 @@ src/shexmlOutputCamps/*
 src/shexmlRulesCamps/*
 src/shexmlOutputGhettos/*
 src/shexmlRulesGhettos/*
+src/shexmlOutputPeople/*
+src/shexmlRulesPeople/*
+src/shexmlOutputCb/*
+src/shexmlRulesCb/*
 src/holdings.ttl
 src/repositories.ttl
 src/institutions.ttl
@@ -24,6 +30,8 @@ src/ghettos.ttl
 src/ehri-terms.ttl
 src/ehri-camps.ttl
 src/ehri-ghettos.ttl
+src/people.ttl
+src/cb.ttl
 src/all.ttl
 
 ### Generic for Python
