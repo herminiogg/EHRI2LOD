@@ -13,3 +13,7 @@ sed -i "1i\@prefix ehri_country: <https://data.ehri-project.eu/countries/> ." cb
 sed -i "1i\@prefix ehri_terms: <https://data.ehri-project.eu/vocabularies/ehri-terms/> ." cb.ttl
 sed -i "1i\@prefix xs:    <http://www.w3.org/2001/XMLSchema#> ." cb.ttl
 sed -i "1i\@prefix wd:    <http://www.wikidata.org/entity/> ." cb.ttl
+sed -i "1i\@prefix owl:    <http://www.w3.org/2002/07/owl#> ." cb.ttl
+sed -i "1i\@prefix rico: <https://www.ica.org/standards/RiC/ontology#> ." cb.ttl
+sed -i "1i\@prefix ricoVocab: <https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#> ." cb.ttl
+sed -i "1i\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ." cb.ttl

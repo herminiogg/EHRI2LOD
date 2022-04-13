@@ -19,6 +19,8 @@ PREFIX ehri_ghettos: <https://data.ehri-project.eu/vocabularies/ehri-ghettos/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\ghettos\ghettos_"""
 
 shexml_second_part = r""".json>
@@ -37,7 +39,7 @@ ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
 EXPRESSION term <terms.terms_iterator>
 
 ehri:Ghetto ehri_units:[term.links.targets.unit_id] {
-  	schema:mentions ehri_ghettos:[term.links.targets.term_id] ;
+    rico:hasOrHadSubject ehri_ghettos:[term.links.targets.term_id] ;
 }
 """
 

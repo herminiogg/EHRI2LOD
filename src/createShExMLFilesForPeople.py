@@ -16,9 +16,14 @@ PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
 PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
 PREFIX ehri_units: <https://data.ehri-project.eu/units/>
 PREFIX ehri_pers: <https://data.ehri-project.eu/vocabularies/ehri-pers/>
+PREFIX ehri_pers_full_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/name/>
+PREFIX ehri_pers_other_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/other-name/>
+PREFIX ehri_pers_parallel_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/parallel-name/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 SOURCE people <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\people\people_"""
 
 shexml_second_part = r""".json>
@@ -44,20 +49,37 @@ ITERATOR people_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]
 }
 
 EXPRESSION person <people.people_iterator>
+EXPRESSION full_name <people.people_iterator.firstName + " " + people.people_iterator.lastName>
+
+AUTOINCREMENT agent_name_id <"agentName" + 0 to 99999999>
 
 ehri:Link ehri_units:[person.links.targets.unit_id] {
-  	schema:mentions ehri_pers:[person.links.targets.term_id] ;
+    rico:hasOrHadSubject ehri_pers:[person.links.targets.term_id] ;
 }
 
 ehri:Person ehri_pers:[person.term_id] {
-    schema:name [person.name] @[person.languageCode] ;
-    schema:familyName [person.lastName] ;
-    schema:givenName [person.firstName] ;
-    schema:description [person.biographicalHistory] ;
-    schema:additionalName [person.otherFormsOfName] ;
-    schema:additionalName [person.parallelFormsOfName] ;
+    a rico:Person ;
+    rdfs:label [person.name] @[person.languageCode] ;
+    rico:history [person.biographicalHistory] ;
+    rico:hasAgentName @ehri:AgentFullName ;
+    rico:hasAgentName @ehri:AgentOtherFormName ;
+    rico:hasAgentName @ehri:AgentParallelFormName ;
 }
 
+ehri:AgentFullName ehri_pers_full_name:[person.term_id] {
+	a rico:AgentName ;
+	rdfs:label [full_name] ;
+}
+
+ehri:AgentOtherFormName ehri_pers_other_form_name:[person.term_id] {
+	a rico:AgentName ;
+	rdfs:label [person.otherFormsOfName] ;
+}
+
+ehri:AgentParallelFormName ehri_pers_parallel_form_name:[person.term_id] {
+	a rico:AgentName ;
+	rdfs:label [person.parallelFormsOfName] ;
+}
 """
 
 created_files = []

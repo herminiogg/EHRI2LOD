@@ -15,99 +15,108 @@ PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
 #TODO instutions with mixed paths
 PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
 PREFIX ehri_units: <https://data.ehri-project.eu/units/>
-PREFIX ehri_terms: <https://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX ehri_instantiation: <https://data.ehri-project.eu/instantiations/>
+PREFIX ehri_language: <https://data.ehri-project.eu/languages/>
+PREFIX ehri_acquisition: <https://data.ehri-project.eu/acquisitions/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX ricoVocab: <https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#>
 SOURCE holdings <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\holdings\holdings_"""
 
 shexml_second_part = r""".json>
 
 ITERATOR components_iterator <jsonpath: $.data[*]> {
-	FIELD id <id>
-  	FIELD archived_at <relationships.holder.data.id>
-    FIELD parent <relationships.parent.data.id>
+	PUSHED_FIELD id <id>
+  	PUSHED_FIELD archived_at <relationships.holder.data.id>
+	FIELD parent <relationships.parent.data.id>
+	FIELD local_id <attributes.localId>
   	ITERATOR descriptions <attributes.descriptions[*]> {
     	FIELD name <name>
+		FIELD parallel_names <parallelFormsOfName[*]>
+		FIELD local_id <localId>
         FIELD abstract <scopeAndContent>
         FIELD physdesc <extentAndMedium>
-        FIELD description <systemOfArrangement>
+        FIELD system_arrangement <systemOfArrangement>
         FIELD bioghist <biographicalHistory>
-        FIELD credit_text <acquisition>
-    	FIELD language_of_materials <languageOfMaterials>
+		FIELD arch_hist <archivalHistory>
+        FIELD acquisition <acquisition>
+		FIELD dates <unitDates[*]>
+		FIELD language_code <languageCode>
+		POPPED_FIELD holding_id <id>
+		POPPED_FIELD archive_id <archived_at>
+		ITERATOR language_of_materials <languageOfMaterials> {
+			FIELD lang <[*]>
+		}
+
     }
 }
 
-
 EXPRESSION holding <holdings.components_iterator>
+EXPRESSION history <holding.descriptions.bioghist + "\n" + holding.descriptions.arch_hist>
+EXPRESSION instantiation_id <holdings.components_iterator.descriptions.holding_id + "-" + holdings.components_iterator.descriptions.local_id>
 
 AUTOINCREMENT person_id <"person_" + 0 to 99999999>
 AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
 AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
 AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
 AUTOINCREMENT location_id <"location" + 0 to 99999999>
+AUTOINCREMENT language_id <"language" + 0 to 99999999>
+AUTOINCREMENT acquisition_id <"language" + 0 to 99999999>
 """
 
 
 shexml_third_part = r"""
 ehri:ArchiveComponent ehri_units:[holding.id] {
-  	a schema:ArchiveComponent ;
-    schema:name [holding.descriptions.name] ;
-  	schema:abstract [holding.descriptions.abstract] ;
- 	schema:materialExtent [holding.descriptions.physdesc] ;
-  	schema:holdingArchive ehri_institution:[holding.archived_at] ;
-  	schema:text [holding.descriptions.bioghist] ;
-	schema:description [holding.descriptions.description] xs:string ;
-  	schema:creditText [holding.descriptions.credit_text] ;
-    schema:isPartOf ehri_units:[holding.parent] ;
-  	schema:inLanguage ehri:[holding.descriptions.language_of_materials];
+  	a rico:Record ;
+	rico:hasDocumentaryFormType ricoVocab:FindingAid ;
+    rico:title [holding.descriptions.name] ;
+	rdfs:label [holding.descriptions.name] ;
+	rico:title [holding.descriptions.parallel_names] ;
+	rdfs:label [holding.descriptions.parallel_names] ;
+  	rico:scopeAndContent [holding.descriptions.abstract] @[holding.descriptions.language_code] ;
+	rico:hasInstantiation @ehri:Instantiation ;
+ 	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code]  ;
+	rico:recordResourceStructure [holding.descriptions.system_arrangement] @[holding.descriptions.language_code] ;
+	rico:date [holding.descriptions.dates] ;
+	rico:isOrWasIncludedIn ehri_units:[holding.parent] ;
+	rico:hasOrHadLanguage @ehri:Language ;
+	rico:resultsOrResultedFrom @ehri:Acquisition ;
 }
    
-ehri:Language ehri:[holding.descriptions.language_of_materials] {
-   	a schema:Language ;
-   	schema:name [holding.descriptions.language_of_materials] ;
-   	schema:alternateName [holding.descriptions.language_of_materials MATCHING languages_codes] ;
-  	schema:sameAs wd:[holding.descriptions.language_of_materials MATCHING languages] ;
-}
-"""
-
-shexml_terms_first_part = r"""
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://example.com/>
-PREFIX ehri: <https://data.ehri-project.eu/>
-PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
-#TODO instutions with mixed paths
-PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
-PREFIX ehri_units: <https://data.ehri-project.eu/units/>
-PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX schema: <http://schema.org/>
-PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
-SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\terms\terms_
-"""
-
-shexml_term_second_part = r""".json>
-
-ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
-	PUSHED_FIELD term_id <identifier>
-  	ITERATOR links <links[*]> {
-          FIELD fakefield <fakefield>
-          ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
-              FIELD unit_id <id>
-              POPPED_FIELD term_id <term_id>
-          }    
-      }
+ehri:Language ehri_language:[holding.descriptions.language_of_materials.lang] {
+   	a rico:Language ;
+   	rico:name [holding.descriptions.language_of_materials.lang] ;
 }
 
-EXPRESSION term <terms.terms_iterator>
+ehri:Instantiation ehri_instantiation:[instantiation_id] {
+	a rico:Instantiation ;
+	rico:identifier [holding.local_id] ;
+	rico:history [holding.descriptions.bioghist] @[holding.descriptions.language_code] ;
+	rico:isInstantationOf ehri_units:[holding.descriptions.holding_id] ;
+	rico:title [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rdfs:label [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rico:hasOrHadHolder ehri_institution:[holding.descriptions.archive_id] ;
+}
 
-ehri:Term ehri_units:[term.links.targets.unit_id] {
-  	schema:mentions ehri_terms:[term.links.targets.term_id] ;
+ehri:Acquisition ehri_acquisition:[instantiation_id] {
+	a rico:Activity ;
+	rico:type "Acquisition" ;
+	rdf:value [holding.descriptions.acquisition] ;
+}
+
+ehri:Institution ehri_institution:[holding.archived_at] {
+	rico:isOrWasHolderOf ehri_instantiation:[holding.descriptions.local_id] ;
+}
+
+ehri:ArchiveComponent ehri_units:[holding.parent] {
+	a rico:RecordSet ;
+	rico:includesOrIncluded ehri_units:[holding.id] ;
 }
 """
-
-
 
 created_files = []
 

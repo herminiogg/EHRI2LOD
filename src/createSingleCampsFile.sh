@@ -12,3 +12,7 @@ sed -i "1i\@prefix ehri_country: <https://data.ehri-project.eu/countries/> ." ca
 sed -i "1i\@prefix ehri_camps: <https://data.ehri-project.eu/vocabularies/ehri-camps/> ." camps.ttl
 sed -i "1i\@prefix xs:    <http://www.w3.org/2001/XMLSchema#> ." camps.ttl
 sed -i "1i\@prefix wd:    <http://www.wikidata.org/entity/> ." camps.ttl
+sed -i "1i\@prefix owl:    <http://www.w3.org/2002/07/owl#> ." camps.ttl
+sed -i "1i\@prefix rico: <https://www.ica.org/standards/RiC/ontology#> ." camps.ttl
+sed -i "1i\@prefix ricoVocab: <https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#> ." camps.ttl
+sed -i "1i\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ." camps.ttl

@@ -19,6 +19,8 @@ PREFIX ehri_camps: <https://data.ehri-project.eu/vocabularies/ehri-camps/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\camps\camps_"""
 
 shexml_second_part = r""".json>
@@ -37,7 +39,7 @@ ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
 EXPRESSION term <terms.terms_iterator>
 
 ehri:Camp ehri_units:[term.links.targets.unit_id] {
-  	schema:mentions ehri_camps:[term.links.targets.term_id] ;
+    rico:hasOrHadSubject ehri_camps:[term.links.targets.term_id] ;
 }
 """
 
