@@ -30,11 +30,13 @@ shexml_second_part = r""".json>
 
 ITERATOR people_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]> {
 	PUSHED_FIELD term_id <identifier>
+    FIELD other_form_term_id <[?(@.description.otherFormsOfName[0])].identifier>
+    FIELD parallel_name_term_id <[?(@.description.parallelFormsOfName[0])].identifier>
     FIELD name <description.name>
     FIELD lastName <description.lastName>
     FIELD firstName <description.firstName>
     FIELD languageCode <description.languageCode>
-    FIELD source <description.source>
+    FIELD src <description.source>
     FIELD datesOfExistence <description.datesOfExistence>
     FIELD biographicalHistory <description.biographicalHistory>
     FIELD otherFormsOfName <description.otherFormsOfName>
@@ -49,7 +51,6 @@ ITERATOR people_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]
 }
 
 EXPRESSION person <people.people_iterator>
-EXPRESSION full_name <people.people_iterator.firstName + " " + people.people_iterator.lastName>
 
 AUTOINCREMENT agent_name_id <"agentName" + 0 to 99999999>
 
@@ -61,22 +62,16 @@ ehri:Person ehri_pers:[person.term_id] {
     a rico:Person ;
     rdfs:label [person.name] @[person.languageCode] ;
     rico:history [person.biographicalHistory] ;
-    rico:hasAgentName @ehri:AgentFullName ;
     rico:hasAgentName @ehri:AgentOtherFormName ;
     rico:hasAgentName @ehri:AgentParallelFormName ;
 }
 
-ehri:AgentFullName ehri_pers_full_name:[person.term_id] {
-	a rico:AgentName ;
-	rdfs:label [full_name] ;
-}
-
-ehri:AgentOtherFormName ehri_pers_other_form_name:[person.term_id] {
+ehri:AgentOtherFormName ehri_pers_other_form_name:[person.other_form_term_id] {
 	a rico:AgentName ;
 	rdfs:label [person.otherFormsOfName] ;
 }
 
-ehri:AgentParallelFormName ehri_pers_parallel_form_name:[person.term_id] {
+ehri:AgentParallelFormName ehri_pers_parallel_form_name:[person.parallel_name_term_id] {
 	a rico:AgentName ;
 	rdfs:label [person.parallelFormsOfName] ;
 }
@@ -85,7 +80,7 @@ ehri:AgentParallelFormName ehri_pers_parallel_form_name:[person.term_id] {
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.2.6.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.1.jar", "-m", i, "-o", output_filename])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)

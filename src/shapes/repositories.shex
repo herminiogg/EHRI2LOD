@@ -1,0 +1,64 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/ontology#>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ehri:Institution IRI {
+	rdf:type [ rico:CorporateBody ] ;
+	rdf:type [ schema:ArchiveOrganization ] ;
+	rdfs:label xs:string  ;
+	schema:faxNumber xs:integer + ;
+	schema:telephone xs:integer + ;
+	schema:email xs:string + ;
+	schema:openingHours xsd:string  ;
+	rico:history xs:string  ;
+	rico:descriptiveNote xs:string  ;
+	ehri:conditions xs:string  ;
+	ehri:reproductionServices xs:string  ;
+	ehri:generalContext xs:string  ;
+	owl:sameAs xs:string + ;
+	rico:hasOrHadLocation @ehri:InstitutionLocation + ;
+	rico:hasAgentName @ehri:AgentName + ;
+	rico:hasAgentName @ehri:AgentParallelName + ;
+	rico:hasAgentName @ehri:AgentOtherName + ;
+	rico:authorizedBy @ehri:Mandate + ;
+}
+ehri:InstitutionLocation IRI {
+	rdf:type [ rico:Place ] ;
+	rdf:type [ schema:PostalAddress ] ;
+	rico:geographicalCoordinates xs:string  ;
+	schema:addressCountry [ ehri_country:~ ]  ;
+	rico:isOrWasContainedBy [ ehri_country:~ ]  ;
+	schema:addressRegion xs:string  ;
+	schema:postalCode xs:integer  ;
+	rico:location xs:string  ;
+}
+ehri:AgentName IRI {
+	rdf:type [ rico:AgentName ] ;
+	rdfs:label xs:string  ;
+}
+ehri:AgentParallelName IRI {
+	rdf:type [ rico:AgentName ] ;
+	rdfs:label xs:string + ;
+}
+ehri:AgentOtherName IRI {
+	rdf:type [ rico:AgentName ] ;
+	rdfs:label xs:string + ;
+}
+ehri:Mandate IRI {
+	rdf:type [ rico:Mandate ] ;
+	rdf:value xs:string  ;
+}
+ehri:Country IRI {
+	rico:containsOrContained [ ehri_institution:~ ]  ;
+}

@@ -31,13 +31,16 @@ shexml_second_part = r""".json>
 
 ITERATOR components_iterator <jsonpath: $.data[*]> {
 	PUSHED_FIELD id <id>
+	PUSHED_FIELD id_if_acquisition <[?(@.attributes.descriptions[*].acquisition)].id>
   	PUSHED_FIELD archived_at <relationships.holder.data.id>
 	FIELD parent <relationships.parent.data.id>
 	FIELD local_id <attributes.localId>
   	ITERATOR descriptions <attributes.descriptions[*]> {
+		FIELD description <*>
     	FIELD name <name>
 		FIELD parallel_names <parallelFormsOfName[*]>
 		FIELD local_id <localId>
+		FIELD local_id_if_acquisition <[?(@.acquisition)].localId>
         FIELD abstract <scopeAndContent>
         FIELD physdesc <extentAndMedium>
         FIELD system_arrangement <systemOfArrangement>
@@ -47,6 +50,7 @@ ITERATOR components_iterator <jsonpath: $.data[*]> {
 		FIELD dates <unitDates[*]>
 		FIELD language_code <languageCode>
 		POPPED_FIELD holding_id <id>
+		POPPED_FIELD holding_id_if_acquisition <id_if_acquisition>
 		POPPED_FIELD archive_id <archived_at>
 		ITERATOR language_of_materials <languageOfMaterials> {
 			FIELD lang <[*]>
@@ -58,6 +62,7 @@ ITERATOR components_iterator <jsonpath: $.data[*]> {
 EXPRESSION holding <holdings.components_iterator>
 EXPRESSION history <holding.descriptions.bioghist + "\n" + holding.descriptions.arch_hist>
 EXPRESSION instantiation_id <holdings.components_iterator.descriptions.holding_id + "-" + holdings.components_iterator.descriptions.local_id>
+EXPRESSION instantiation_id_if_acquisition <holdings.components_iterator.descriptions.holding_id_if_acquisition + "-" + holdings.components_iterator.descriptions.local_id_if_acquisition>
 
 AUTOINCREMENT person_id <"person_" + 0 to 99999999>
 AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
@@ -79,7 +84,7 @@ ehri:ArchiveComponent ehri_units:[holding.id] {
 	rdfs:label [holding.descriptions.parallel_names] ;
   	rico:scopeAndContent [holding.descriptions.abstract] @[holding.descriptions.language_code] ;
 	rico:hasInstantiation @ehri:Instantiation ;
- 	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code]  ;
+ 	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code] ;
 	rico:recordResourceStructure [holding.descriptions.system_arrangement] @[holding.descriptions.language_code] ;
 	rico:date [holding.descriptions.dates] ;
 	rico:isOrWasIncludedIn ehri_units:[holding.parent] ;
@@ -102,14 +107,14 @@ ehri:Instantiation ehri_instantiation:[instantiation_id] {
 	rico:hasOrHadHolder ehri_institution:[holding.descriptions.archive_id] ;
 }
 
-ehri:Acquisition ehri_acquisition:[instantiation_id] {
+ehri:Acquisition ehri_acquisition:[instantiation_id_if_acquisition] {
 	a rico:Activity ;
 	rico:type "Acquisition" ;
 	rdf:value [holding.descriptions.acquisition] ;
 }
 
-ehri:Institution ehri_institution:[holding.archived_at] {
-	rico:isOrWasHolderOf ehri_instantiation:[holding.descriptions.local_id] ;
+ehri:Institution ehri_institution:[holding.descriptions.archive_id] {
+	rico:isOrWasHolderOf ehri_instantiation:[instantiation_id] ;
 }
 
 ehri:ArchiveComponent ehri_units:[holding.parent] {
@@ -121,7 +126,7 @@ ehri:ArchiveComponent ehri_units:[holding.parent] {
 created_files = []
 
 def call_shexml(i, output_filename, hash_filename, content_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.2.6.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.1.jar", "-m", i, "-o", output_filename])
     md5 = hashlib.md5()
     with open(content_filename, "r", encoding="utf-8") as content_file:
         with open(hash_filename, "w") as hash_file:

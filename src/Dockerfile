@@ -1,7 +1,7 @@
 FROM ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y openjdk-8-jdk git curl tomcat9 maven
-RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-4.4.0.tar.gz --output fuseki.tar.gz
+RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-4.6.1.tar.gz --output fuseki.tar.gz
 RUN tar -xvzf fuseki.tar.gz
 RUN git clone https://github.com/dvcama/LodView.git
 RUN cd LodView && mvn compile war:war
