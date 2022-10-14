@@ -126,7 +126,7 @@ ehri:ArchiveComponent ehri_units:[holding.parent] {
 created_files = []
 
 def call_shexml(i, output_filename, hash_filename, content_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.1.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
     md5 = hashlib.md5()
     with open(content_filename, "r", encoding="utf-8") as content_file:
         with open(hash_filename, "w") as hash_file:

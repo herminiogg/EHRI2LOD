@@ -80,7 +80,7 @@ ehri:AgentParallelFormName ehri_pers_parallel_form_name:[person.parallel_name_te
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.1.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
