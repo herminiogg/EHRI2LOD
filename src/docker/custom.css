@@ -15,6 +15,10 @@ div#logoBanner {
     height: 120px;
 }
 
+#seeOnLodLive {
+    top: 146px;
+}
+
 @media ( -webkit-min-device-pixel-ratio : 2) , ( min-resolution : 192dpi) {
 	div#logoBanner div#logo {
 		background-image: url(https://www.ehri-project.eu/sites/all/themes/zenehri/images/logo.png);
