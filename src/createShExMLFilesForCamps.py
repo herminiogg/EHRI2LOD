@@ -19,17 +19,19 @@ PREFIX ehri_camps: <https://data.ehri-project.eu/vocabularies/ehri-camps/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\camps\camps_"""
 
 shexml_second_part = r""".json>
 
 ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
-	PUSHED_FIELD term_id <identifier>
+	PUSHED_FIELD item_id <identifier>
   	ITERATOR links <links[*]> {
           FIELD fakefield <fakefield>
           ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
               FIELD unit_id <id>
-              POPPED_FIELD term_id <term_id>
+              POPPED_FIELD parent_id <item_id>
           }    
       }
 }
@@ -37,14 +39,14 @@ ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
 EXPRESSION term <terms.terms_iterator>
 
 ehri:Camp ehri_units:[term.links.targets.unit_id] {
-  	schema:mentions ehri_camps:[term.links.targets.term_id] ;
+    rico:hasOrHadSubject ehri_camps:[term.links.targets.parent_id] ;
 }
 """
 
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.2.6.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)

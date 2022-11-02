@@ -1,7 +1,7 @@
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://example.com/>
-PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri: <https://data.ehri-project.eu/ontology#>
 PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
 #TODO instutions with mixed paths
 PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
@@ -10,13 +10,19 @@ PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 SOURCE repositories <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\institutions\institutions_*.json>
 
 ITERATOR repositories_iterator <jsonpath: $.data[*]> {
 	FIELD id <id>
   	FIELD type <type>
   	FIELD name <attributes.name>
+	FIELD parallelNames <attributes.parallelFormsOfName[*]>
+	FIELD otherNames <attributes.otherFormsOfName[*]>
   	FIELD history <attributes.history>
+	FIELD description <attributes.holdings>
   	FIELD address_name <attributes.address.name>
   	FIELD street_address <attributes.address.streetAddress>
   	FIELD city <attributes.address.city>
@@ -31,15 +37,25 @@ ITERATOR repositories_iterator <jsonpath: $.data[*]> {
   	FIELD telephone <attributes.address.telephone[*]>
   	FIELD fax <attributes.address.fax[*]>
   	FIELD url <attributes.address.url[*]>
+	FIELD email <attributes.address.email[*]>
+	FIELD openingTimes <attributes.address.openingTimes>
+	FIELD mandates <attributes.mandates>
+	FIELD conditions <attributes.conditions>
+	FIELD reproductionServices <attributes.reproductionServices>
+	FIELD generalContext <attributes.generalContext>
 }
 
 EXPRESSION organization <repositories.repositories_iterator>
+EXPRESSION coordinates <repositories.repositories_iterator.lat + ", " + repositories.repositories_iterator.long>
+EXPRESSION location <repositories.repositories_iterator.street_address + ", " + repositories.repositories_iterator.city>
 
 AUTOINCREMENT person_id <"person_" + 0 to 99999999>
 AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
 AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
 AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
 AUTOINCREMENT location_id <"location" + 0 to 99999999>
+AUTOINCREMENT agent_name_id <"agentName" + 0 to 99999999>
+AUTOINCREMENT mandate_id <"mandate" + 0 to 99999999>
 
 MATCHER languages <English AS Q1860 &
 	German AS Q188 &
@@ -50,22 +66,57 @@ MATCHER languages_codes <English AS eng &
 	Hebrew AS heb >
 
 ehri:Institution ehri_institution:[organization.id] {
+	a rico:CorporateBody ;
 	a schema:ArchiveOrganization ;
-  	schema:name [organization.name] ;
+  	rdfs:label [organization.name] ;
   	schema:faxNumber [organization.fax] ;
   	schema:telephone [organization.telephone] ;
-  	schema:latitude [organization.lat] ;
-  	schema:longitude [organization.long] ;
-  	schema:description [organization.history] ;
-  	schema:sameAs [organization.url] ;
-  	schema:location @ehri:InstitutionLocation ;
+	schema:email [organization.email] ;
+	schema:openingHours [organization.openingTimes] ;
+  	rico:history [organization.history] ;
+	rico:descriptiveNote [organization.description] ;
+	ehri:conditions [organization.conditions] ;
+	ehri:reproductionServices [organization.reproductionServices] ;
+	ehri:generalContext [organization.generalContext] ;
+  	owl:sameAs [organization.url] ;
+  	rico:hasOrHadLocation @ehri:InstitutionLocation ;
+	rico:hasAgentName @ehri:AgentName ;
+	rico:hasAgentName @ehri:AgentParallelName ;
+	rico:hasAgentName @ehri:AgentOtherName ;
+	rico:authorizedBy @ehri:Mandate ;
 }
  
-ehri:InstitutionLocation ehri:[location_id] {
+ehri:InstitutionLocation _:[location_id] {
+	a rico:Place ;
 	a schema:PostalAddress ;
+	rico:geographicalCoordinates [coordinates] ;
   	schema:addressCountry ehri_country:[organization.country_code] ;
+	rico:isOrWasContainedBy ehri_country:[organization.country_code] ;
   	schema:addressRegion [organization.region] ;
   	schema:postalCode [organization.postal_code] ;
-  	schema:streetAddress [organization.street_address] ;
-  	schema:addressLocality [organization.city] ;
+  	rico:location [location] ;
+}
+
+ehri:AgentName _:[agent_name_id] {
+	a rico:AgentName ;
+	rdfs:label [organization.name] ;
+}
+
+ehri:AgentParallelName _:[agent_name_id] {
+	a rico:AgentName ;
+	rdfs:label [organization.parallelNames] ;
+}
+
+ehri:AgentOtherName _:[agent_name_id] {
+	a rico:AgentName ;
+	rdfs:label [organization.otherNames] ;
+}
+
+ehri:Mandate _:[mandate_id] {
+	a rico:Mandate ;
+	rdf:value [organization.mandates] ;
+}
+
+ehri:Country ehri_country:[organization.country_code] {
+	rico:containsOrContained ehri_institution:[organization.id] ;
 }

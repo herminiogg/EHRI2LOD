@@ -19,6 +19,8 @@ PREFIX ehri_cb: <https://data.ehri-project.eu/vocabularies/ehri-cb/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 SOURCE cb <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\cb\cb_"""
 
 shexml_second_part = r""".json>
@@ -46,13 +48,14 @@ ITERATOR cb_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]> {
 EXPRESSION cbs <cb.cb_iterator>
 
 ehri:Thing ehri_cb:[cbs.item_id] {
-    schema:name [cbs.name] @[cbs.languageCode] ;
-    schema:url [cbs.sourceLink] ;
-    schema:description [cbs.biographicalHistory] ;
+    a rico:CorporateBody ;
+    rdfs:label [cbs.name] @[cbs.languageCode] ;
+    owl:sameAs [cbs.sourceLink] ;
+    rico:history [cbs.biographicalHistory] ;
 }
 
 ehri:Link ehri_units:[cbs.links.targets.unit_id] {
-  	schema:mentions ehri_cb:[cbs.links.targets.parent_id] ;
+    rico:hasOrHadSubject ehri_cb:[cbs.links.targets.parent_id] ;
 }
 
 """
@@ -60,7 +63,7 @@ ehri:Link ehri_units:[cbs.links.targets.unit_id] {
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.2.6.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
