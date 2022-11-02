@@ -26,12 +26,12 @@ SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\camps\camps_"""
 shexml_second_part = r""".json>
 
 ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
-	PUSHED_FIELD term_id <identifier>
+	PUSHED_FIELD item_id <identifier>
   	ITERATOR links <links[*]> {
           FIELD fakefield <fakefield>
           ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
               FIELD unit_id <id>
-              POPPED_FIELD term_id <term_id>
+              POPPED_FIELD parent_id <item_id>
           }    
       }
 }
@@ -39,14 +39,14 @@ ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
 EXPRESSION term <terms.terms_iterator>
 
 ehri:Camp ehri_units:[term.links.targets.unit_id] {
-    rico:hasOrHadSubject ehri_camps:[term.links.targets.term_id] ;
+    rico:hasOrHadSubject ehri_camps:[term.links.targets.parent_id] ;
 }
 """
 
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.1.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)

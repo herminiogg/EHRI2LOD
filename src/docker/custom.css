@@ -1,0 +1,29 @@
+/* ***************** */
+/*  CUSTOM CSS HERE  */
+/* ***************** */
+div#logoBanner div#logo {
+	background-size: 140px 100px;
+	background-image: url(https://www.ehri-project.eu/sites/all/themes/zenehri/images/logo.png);
+	height: 120px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	width: 150px;
+}
+
+div#logoBanner {
+    height: 120px;
+}
+
+@media ( -webkit-min-device-pixel-ratio : 2) , ( min-resolution : 192dpi) {
+	div#logoBanner div#logo {
+		background-image: url(https://www.ehri-project.eu/sites/all/themes/zenehri/images/logo.png);
+	}
+}
+
+/* ********************************** */
+/*  CUSTOM FOOTER, HIDDEN BY DEFAULT  */
+/* ********************************** */
+#customFooter {
+	display: none;
+} 
