@@ -52,6 +52,8 @@
 @prefix claros: <http://purl.org/NET/Claros/vocab#> .
 @prefix crm120111: <http://erlangen-crm.org/120111/> .
 @prefix rel: <http://purl.org/vocab/relationship/> .
+@prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
+@prefix ehri:  <https://data.ehri-project.eu/> .
 
 
 <> a conf:Configuration;
@@ -153,7 +155,7 @@
 
 ##	home link (accessible from the banner)
 
-	conf:homeUrl <http://remember to change this in conf.ttl>;
+	conf:homeUrl <http://localhost:8080>;
 
   	
 ##	static resources publishing point, "staticResources/" is needed if you are going 

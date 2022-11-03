@@ -19,6 +19,15 @@ div#logoBanner {
     top: 146px;
 }
 
+#countriesList {
+	margin-left: 30px;
+	margin-top: 5px;
+}
+
+aside {
+	display: none;
+}
+
 @media ( -webkit-min-device-pixel-ratio : 2) , ( min-resolution : 192dpi) {
 	div#logoBanner div#logo {
 		background-image: url(https://www.ehri-project.eu/sites/all/themes/zenehri/images/logo.png);

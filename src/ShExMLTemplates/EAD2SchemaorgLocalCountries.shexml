@@ -31,6 +31,7 @@ ehri:Country ehri_country:[country.id] {
 	a schema:Country ;
 	a rico:Place ;
   	schema:name [country.name] @eng ;
+	rdfs:label [country.name] @eng ;
 	rico:name [country.name] @eng ;
 	owl:sameAs dbr:[country.name] ;
 	ehri:history [country.history] @eng ;
