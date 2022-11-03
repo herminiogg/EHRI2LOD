@@ -27,7 +27,7 @@
 
 			<div class="value">
                 <p>To start browsing the data we give you some hints of countries that you may want to explore:</p>
-                <ul>
+                <ul id="countriesList">
                     <li><a href="countries/us">United States of America</a></li>
                     <li><a href="countries/il">Israel</a></li>
                     <li><a href="countries/de">Germany</a></li>
