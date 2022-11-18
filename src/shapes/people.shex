@@ -1,0 +1,35 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_pers: <https://data.ehri-project.eu/vocabularies/ehri-pers/>
+PREFIX ehri_pers_full_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/name/>
+PREFIX ehri_pers_other_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/other-name/>
+PREFIX ehri_pers_parallel_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/parallel-name/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+
+ehri:Link IRI {
+	rico:hasOrHadSubject [ ehri_pers:~ ]  ;
+}
+ehri:Person IRI {
+	rdf:type [ rico:Person ] ;
+	rdfs:label rdf:langString ;
+	rico:history xs:string  ;
+	rico:hasAgentName @ehri:AgentOtherFormName + ;
+	rico:hasAgentName @ehri:AgentParallelFormName + ;
+}
+ehri:AgentOtherFormName IRI {
+	rdf:type [ rico:AgentName ] ;
+	rdfs:label xs:string  ;
+}
+ehri:AgentParallelFormName IRI {
+	rdf:type [ rico:AgentName ] ;
+	rdfs:label xs:string + ;
+}

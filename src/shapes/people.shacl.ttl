@@ -1,0 +1,78 @@
+@prefix :      <http://example.com/> .
+@prefix schema: <http://schema.org/> .
+@prefix ehri_pers_other_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/other-name/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix ehri_pers: <https://data.ehri-project.eu/vocabularies/ehri-pers/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ehri_pers_full_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/name/> .
+@prefix wd:    <http://www.wikidata.org/entity/> .
+@prefix ehri_pers_parallel_form_name: <https://data.ehri-project.eu/vocabularies/ehri-pers/parallel-name/> .
+@prefix ehri_units: <https://data.ehri-project.eu/units/> .
+@prefix ehri_institution: <https://data.ehri-project.eu/institutions/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix ehri:  <https://data.ehri-project.eu/> .
+@prefix dbr:   <http://dbpedia.org/resource/> .
+@prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
+@prefix ehri_country: <https://data.ehri-project.eu/countries/> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema#> .
+
+ehri:AgentParallelFormName
+        a               sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:AgentName ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:AgentParallelFormName .
+
+ehri:Person  a          sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:class     ehri:AgentParallelFormName ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasAgentName
+                        ] ;
+        sh:property     [ sh:class     ehri:AgentOtherFormName ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasAgentName
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rico:history
+                        ] ;
+        sh:property     [ sh:datatype  rdf:langString ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:Person ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:Person .
+
+ehri:AgentOtherFormName
+        a               sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:AgentName ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:AgentOtherFormName .
+
+ehri:Link  a            sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasOrHadSubject
+                        ] ;
+        sh:targetClass  ehri:Link .

@@ -1,0 +1,194 @@
+@prefix :      <http://example.com/> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/> .
+@prefix wd:    <http://www.wikidata.org/entity/> .
+@prefix ehri_units: <https://data.ehri-project.eu/units/> .
+@prefix ehri_institution: <https://data.ehri-project.eu/institutions/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix ehri:  <https://data.ehri-project.eu/ontology#> .
+@prefix dbr:   <http://dbpedia.org/resource/> .
+@prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
+@prefix ehri_country: <https://data.ehri-project.eu/countries/> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema#> .
+
+ehri:Mandate  a         sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rdf:value
+                        ] ;
+        sh:property     [ sh:in    ( rico:Mandate ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:Mandate .
+
+ehri:Country  a         sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:containsOrContained
+                        ] ;
+        sh:targetClass  ehri:Country .
+
+ehri:AgentParallelName
+        a               sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:AgentName ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:AgentParallelName .
+
+ehri:AgentName  a       sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:AgentName ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:AgentName .
+
+ehri:AgentOtherName  a  sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:in    ( rico:AgentName ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:AgentOtherName .
+
+ehri:InstitutionLocation
+        a               sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:in    ( schema:PostalAddress ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:property     [ sh:datatype  xs:integer ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      schema:postalCode
+                        ] ;
+        sh:property     [ sh:in    ( rico:Place ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:property     [ sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:isOrWasContainedBy
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rico:geographicalCoordinates
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rico:location
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      schema:addressRegion
+                        ] ;
+        sh:property     [ sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      schema:addressCountry
+                        ] ;
+        sh:targetClass  ehri:InstitutionLocation .
+
+ehri:Institution  a     sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:class     ehri:AgentParallelName ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasAgentName
+                        ] ;
+        sh:property     [ sh:datatype  xs:integer ;
+                          sh:minCount  1 ;
+                          sh:path      schema:faxNumber
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      ehri:reproductionServices
+                        ] ;
+        sh:property     [ sh:class     ehri:Mandate ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:authorizedBy
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rdfs:label
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:minCount  1 ;
+                          sh:path      schema:email
+                        ] ;
+        sh:property     [ sh:in    ( rico:CorporateBody ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rico:descriptiveNote
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:minCount  1 ;
+                          sh:path      owl:sameAs
+                        ] ;
+        sh:property     [ sh:datatype  xs:integer ;
+                          sh:minCount  1 ;
+                          sh:path      schema:telephone
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      rico:history
+                        ] ;
+        sh:property     [ sh:class     ehri:AgentName ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasAgentName
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      schema:openingHours
+                        ] ;
+        sh:property     [ sh:class     ehri:InstitutionLocation ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasOrHadLocation
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      ehri:conditions
+                        ] ;
+        sh:property     [ sh:class     ehri:AgentOtherName ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasAgentName
+                        ] ;
+        sh:property     [ sh:datatype  xs:string ;
+                          sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:path      ehri:generalContext
+                        ] ;
+        sh:property     [ sh:in    ( schema:ArchiveOrganization ) ;
+                          sh:path  rdf:type
+                        ] ;
+        sh:targetClass  ehri:Institution .

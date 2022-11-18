@@ -1,7 +1,7 @@
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://example.com/>
-PREFIX ehri: <https://data.ehri-project.eu/ontology#>
+PREFIX ehri: <https://data.ehri-project.eu/>
 PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
 PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
 PREFIX ehri_units: <https://data.ehri-project.eu/units/>
@@ -10,17 +10,7 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-ehri:Country IRI {
-	rdf:type [ schema:Country ] ;
-	rdf:type [ rico:Place ] ;
-	schema:name [ @eng ] ;
-	rdfs:label [ @eng ] ;
-	rico:name [ @eng ] ;
-	owl:sameAs [ dbr:~ ]  ;
-	ehri:history [ @eng ] ;
-	ehri:situation [ @eng ] ;
-	ehri:summary [ @eng ] ;
-	ehri:extensive [ @eng ] ;
+ehri:Term IRI {
+	rico:hasOrHadSubject [ ehri_terms:~ ]  ;
 }

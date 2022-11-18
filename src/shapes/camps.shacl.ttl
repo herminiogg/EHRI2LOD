@@ -1,0 +1,25 @@
+@prefix :      <http://example.com/> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix wd:    <http://www.wikidata.org/entity/> .
+@prefix ehri_units: <https://data.ehri-project.eu/units/> .
+@prefix ehri_institution: <https://data.ehri-project.eu/institutions/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix ehri:  <https://data.ehri-project.eu/> .
+@prefix ehri_camps: <https://data.ehri-project.eu/vocabularies/ehri-camps/> .
+@prefix dbr:   <http://dbpedia.org/resource/> .
+@prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
+@prefix ehri_country: <https://data.ehri-project.eu/countries/> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema#> .
+
+ehri:Camp  a            sh:NodeShape ;
+        sh:closed       true ;
+        sh:property     [ sh:maxCount  1 ;
+                          sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      rico:hasOrHadSubject
+                        ] ;
+        sh:targetClass  ehri:Camp .

@@ -178,3 +178,47 @@ query {
     } 
   }
 }   
+
+{
+  Repository(id: "be-002157") {
+    id
+    documentaryUnits {
+      items {
+        identifier
+        descriptions {
+          accessPoints {
+            name
+          }
+        }
+      }
+      pageInfo {
+        hasPreviousPage
+        previousPage
+        hasNextPage
+        nextPage
+  		}
+    }
+  }
+}
+
+{
+  Repository(id: "be-002157") {
+    id
+    documentaryUnits(after: "NDA=") {
+      items {
+        identifier
+        descriptions {
+          accessPoints {
+            name
+          }
+        }
+      }
+      pageInfo {
+        hasPreviousPage
+        previousPage
+        hasNextPage
+        nextPage
+  		}
+    }
+  }
+}

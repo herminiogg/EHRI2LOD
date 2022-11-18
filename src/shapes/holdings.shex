@@ -1,0 +1,59 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <https://data.ehri-project.eu/>
+PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
+PREFIX ehri_units: <https://data.ehri-project.eu/units/>
+PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX ehri_instantiation: <https://data.ehri-project.eu/instantiations/>
+PREFIX ehri_language: <https://data.ehri-project.eu/languages/>
+PREFIX ehri_acquisition: <https://data.ehri-project.eu/acquisitions/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX ricoVocab: <https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#>
+
+ehri:ArchiveComponent IRI {
+	rdf:type [ rico:Record ] ;
+	rico:hasDocumentaryFormType [ ricoVocab:FindingAid ] ;
+	rico:title xs:string + ;
+	rdfs:label xs:string + ;
+	rico:title xs:string + ;
+	rdfs:label xs:string + ;
+	rico:scopeAndContent rdf:langString  ;
+	rico:hasInstantiation @ehri:Instantiation + ;
+	rico:recordResourceExtent rdf:langString  ;
+	rico:recordResourceStructure rdf:langString ;
+	rico:date xs:integer  ;
+	rico:isOrWasIncludedIn [ ehri_units:~ ]  ;
+	rico:hasOrHadLanguage @ehri:Language + ;
+	rico:resultsOrResultedFrom @ehri:Acquisition + ;
+}
+ehri:Language IRI {
+	rdf:type [ rico:Language ] ;
+	rico:name xs:string  ;
+}
+ehri:Instantiation IRI {
+	rdf:type [ rico:Instantiation ] ;
+	rico:identifier xsd:string  ;
+	rico:history rdf:langString  ;
+	rico:isInstantationOf [ ehri_units:~ ]  ;
+	rico:title rdf:langString ;
+	rdfs:label rdf:langString ;
+	rico:hasOrHadHolder [ ehri_institution:~ ]  ;
+}
+ehri:Acquisition IRI {
+	rdf:type [ rico:Activity ] ;
+	rico:type [ "Acquisition" ] ;
+	rdf:value xsd:string  ;
+}
+ehri:Institution IRI {
+	rico:isOrWasHolderOf [ ehri_instantiation:~ ]  ;
+}
+ehri:ArchiveComponent IRI {
+	rdf:type [ rico:RecordSet ] ;
+	rico:includesOrIncluded [ ehri_units:~ ]  ;
+}
