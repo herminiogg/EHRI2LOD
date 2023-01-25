@@ -33,6 +33,7 @@ src/ehri-ghettos.ttl
 src/people.ttl
 src/cb.ttl
 src/all.ttl
+src/allWithExtras.ttl
 
 ### Generic for Python
 

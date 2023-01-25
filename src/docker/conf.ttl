@@ -53,7 +53,7 @@
 @prefix crm120111: <http://erlangen-crm.org/120111/> .
 @prefix rel: <http://purl.org/vocab/relationship/> .
 @prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
-@prefix ehri:  <https://data.ehri-project.eu/> .
+@prefix ehri:  <http://lod.ehri-project-test.eu/> .
 
 
 <> a conf:Configuration;
@@ -62,7 +62,7 @@
 ## 	IRIs namespace we use to replace the webapp base (eg. http://localhost:8080/lodview/), an
 ##	installation on dbpedia domain should use <http://dbpedia.org/resource/> 
 	
-	conf:IRInamespace <https://data.ehri-project.eu/>  ;
+	conf:IRInamespace <http://lod.ehri-project-test.eu/>  ;
 
 ## 	EndPoint
 

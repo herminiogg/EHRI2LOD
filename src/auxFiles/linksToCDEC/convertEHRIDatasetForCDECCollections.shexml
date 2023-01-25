@@ -1,0 +1,32 @@
+PREFIX : <http://example.com/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.com/>
+PREFIX ehri: <http://lod.ehri-project-test.eu/>
+PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
+#TODO instutions with mixed paths
+PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
+PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
+PREFIX ehri_pers: <http://lod.ehri-project-test.eu/vocabularies/ehri-pers/>
+PREFIX ehri_pers_full_name: <http://lod.ehri-project-test.eu/vocabularies/ehri-pers/name/>
+PREFIX ehri_pers_other_form_name: <http://lod.ehri-project-test.eu/vocabularies/ehri-pers/other-name/>
+PREFIX ehri_pers_parallel_form_name: <http://lod.ehri-project-test.eu/vocabularies/ehri-pers/parallel-name/>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+
+SOURCE file <https://portal.ehri-project.eu/api/datasets/CKyzTeU2Gq?format=json>
+
+ITERATOR json_iter <jsonpath: $.data[*]> {
+  	FIELD descriptionID <[0]>
+  	FIELD personID <[3]>
+    
+}
+
+EXPRESSION data <file.json_iter>
+
+ehri:Link ehri_units:[data.descriptionID] {
+    rico:hasOrHadSubject ehri_pers:[data.personID] ;
+}

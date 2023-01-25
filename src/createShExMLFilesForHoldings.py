@@ -101,7 +101,7 @@ ehri:Instantiation ehri_instantiation:[instantiation_id] {
 	a rico:Instantiation ;
 	rico:identifier [holding.local_id] ;
 	rico:history [holding.descriptions.bioghist] @[holding.descriptions.language_code] ;
-	rico:isInstantationOf ehri_units:[holding.descriptions.holding_id] ;
+	rico:isInstantiationOf ehri_units:[holding.descriptions.holding_id] ;
 	rico:title [holding.descriptions.name] @[holding.descriptions.language_code] ;
 	rdfs:label [holding.descriptions.name] @[holding.descriptions.language_code] ;
 	rico:hasOrHadHolder ehri_institution:[holding.descriptions.archive_id] ;
