@@ -1,0 +1,24 @@
+PREFIX db: <http://dbpedia.org/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ehri: <http://lod.ehri-project-test.eu/>
+PREFIX ehri_institutions: <http://lod.ehri-project-test.eu/institutions/>
+PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
+PREFIX ehri_countries: <http://lod.ehri-project-test.eu/countries/>
+
+CONSTRUCT {
+	?language owl:sameAs ?languageDBpedia
+} WHERE {
+	?language a rico:Language ;
+		rico:name ?languageLabel .
+	SERVICE <https://dbpedia.org/sparql/> {
+	?languageDBpedia a dbo:Language ;
+		dbp:name ?languageLabelDBpedia .
+	}
+	FILTER(?languageLabel = STR(?languageLabelDBpedia))
+}
