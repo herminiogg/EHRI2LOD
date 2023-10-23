@@ -15,15 +15,15 @@ rm people.ttl
 
 echo "Removing folders..."
 
-#rm -rf camps
-#rm -rf cb
-#rm -rf countries
-#rm -rf ghettos
-#rm -rf holdings
-#rm -rf holdings_hash
-#rm -rf institutions
-#rm -rf terms
-#rm -rf people
+rm -rf camps
+rm -rf cb
+rm -rf countries
+rm -rf ghettos
+rm -rf holdings
+rm -rf holdings_hash
+rm -rf institutions
+rm -rf terms
+rm -rf people
 rm -rf shexmlOutput
 rm -rf shexmlOutputCamps
 rm -rf shexmlOutputCb
