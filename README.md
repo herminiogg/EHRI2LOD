@@ -9,9 +9,9 @@ Have in mind that all the ShExML scripts use absolute paths, so you would have t
 2. Download all the files from the portal `$ python downloader.py`
 3. Convert countries and institutions to Turtle
 ```
-$ java -Dfile.encoding=UTF8 -jar ShExML-v0.3.2.jar -m ShExMLTemplates\EAD2SchemaorgLocalCountries.shexml -o countries.ttl
+$ java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates\EAD2SchemaorgLocalCountries.shexml -o countries.ttl
 
-$ java -Dfile.encoding=UTF8 -jar ShExML-v0.3.2.jar -m ShExMLTemplates\EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
+$ java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates\EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
 ```
 4. Convert the holdings to Turtle `$ python createShExMLFilesForHoldings.py holdings`
 5. Convert the terms to Turtle `$ python createShExMLFilesForTerms.py terms`
@@ -27,15 +27,17 @@ $ java -Dfile.encoding=UTF8 -jar ShExML-v0.3.2.jar -m ShExMLTemplates\EAD2Schema
 15. Mix all the ghettos in a single big Turtle file `$ sh createSingleGhettosFile.sh`
 16. (optional) Create a single file with all the data `$ sh createSingleFileForDocker.sh`
 
+Alternatively, you can run the whole process unattendedly using `$ sh convertAll.sh`
+
 ## Docker
 It is possible to launch a Docker container to visualise the generated data in a LOD viewer. For doing this you can use the the provided Dockerfile. You can either build or pull from Docker hub with the last generated data.
 Build:
 ```
 $ docker build -t herminiogg/ehri2lod .
 ```
-Pull:
+or Pull:
 ```
-$ docker pull herminiogg/shexml
+$ docker pull herminiogg/ehri2lod
 ```
 Launch:
 ```
@@ -48,6 +50,5 @@ As part of the process additional resources were also generated and are attached
 One special output from the process are the ShEx and SHACL shapes generated directly from the ShExML mapping rules (see [ShEx generation from ShExML](http://shexml.herminiogarcia.com/validation/shex.html)). Take into account that, due to the big amount of data, these shapes are generated from a small set of data, meaning that cardinalities and data types may not be 100% accurate. The files can be found in the shapes folder.
 
 ## Future work
-* Make the whole process unattended
 * Create a process to incrementally update the data
 

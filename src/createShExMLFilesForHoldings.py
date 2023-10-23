@@ -78,10 +78,10 @@ shexml_third_part = r"""
 ehri:ArchiveComponent ehri_units:[holding.id] {
   	a rico:Record ;
 	rico:hasDocumentaryFormType ricoVocab:FindingAid ;
-    rico:title [holding.descriptions.name] ;
-	rdfs:label [holding.descriptions.name] ;
-	rico:title [holding.descriptions.parallel_names] ;
-	rdfs:label [holding.descriptions.parallel_names] ;
+    rico:title [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rdfs:label [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rico:title [holding.descriptions.parallel_names] @[holding.descriptions.language_code] ;
+	rdfs:label [holding.descriptions.parallel_names] @[holding.descriptions.language_code] ;
   	rico:scopeAndContent [holding.descriptions.abstract] @[holding.descriptions.language_code] ;
 	rico:hasInstantiation @ehri:Instantiation ;
  	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code] ;
@@ -110,7 +110,7 @@ ehri:Instantiation ehri_instantiation:[instantiation_id] {
 ehri:Acquisition ehri_acquisition:[instantiation_id_if_acquisition] {
 	a rico:Activity ;
 	rico:type "Acquisition" ;
-	rdf:value [holding.descriptions.acquisition] ;
+	rdf:value [holding.descriptions.acquisition] @[holding.descriptions.language_code] ;
 }
 
 ehri:Institution ehri_institution:[holding.descriptions.archive_id] {
@@ -126,7 +126,7 @@ ehri:ArchiveComponent ehri_units:[holding.parent] {
 created_files = []
 
 def call_shexml(i, output_filename, hash_filename, content_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.3.2.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.4.0.jar", "-m", i, "-o", output_filename])
     md5 = hashlib.md5()
     with open(content_filename, "r", encoding="utf-8") as content_file:
         with open(hash_filename, "w") as hash_file:
@@ -154,9 +154,9 @@ def convert_to_rdf(i, created_files, folder):
 
 def get_matcher_contents():
     matchers = ""
-    with open("MatcherLanguagesCodes.txt", "r", encoding="utf-8") as content:
+    with open("auxFiles/MatcherLanguagesCodes.txt", "r", encoding="utf-8") as content:
         matchers += ''.join(content.readlines()) + "\n"
-    with open("MatcherLanguages.txt", "r", encoding="utf-8") as content:
+    with open("auxFiles/MatcherLanguages.txt", "r", encoding="utf-8") as content:
         matchers += ''.join(content.readlines()) + "\n"
     return matchers
 

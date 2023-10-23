@@ -73,11 +73,11 @@ ehri:Institution ehri_institution:[organization.id] {
   	schema:telephone [organization.telephone] ;
 	schema:email [organization.email] ;
 	schema:openingHours [organization.openingTimes] ;
-  	rico:history [organization.history] ;
-	rico:descriptiveNote [organization.description] ;
-	ehri:conditions [organization.conditions] ;
-	ehri:reproductionServices [organization.reproductionServices] ;
-	ehri:generalContext [organization.generalContext] ;
+  	rico:history [organization.history] @eng ;
+	rico:descriptiveNote [organization.description] @eng ;
+	ehri:conditions [organization.conditions] @eng ;
+	ehri:reproductionServices [organization.reproductionServices] @eng ;
+	ehri:generalContext [organization.generalContext] @eng ;
   	owl:sameAs [organization.url] ;
   	rico:hasOrHadLocation @ehri:InstitutionLocation ;
 	rico:hasAgentName @ehri:AgentName ;
@@ -114,7 +114,7 @@ ehri:AgentOtherName _:[agent_name_id] {
 
 ehri:Mandate _:[mandate_id] {
 	a rico:Mandate ;
-	rdf:value [organization.mandates] ;
+	rdf:value [organization.mandates] @eng ;
 }
 
 ehri:Country ehri_country:[organization.country_code] {

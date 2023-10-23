@@ -59,10 +59,10 @@ AUTOINCREMENT acquisition_id <"language" + 0 to 99999999>
 ehri:ArchiveComponent ehri_units:[holding.id] {
   	a rico:Record ;
 	rico:hasDocumentaryFormType ricoVocab:FindingAid ;
-    rico:title [holding.descriptions.name] ;
-	rdfs:label [holding.descriptions.name] ;
-	rico:title [holding.descriptions.parallel_names] ;
-	rdfs:label [holding.descriptions.parallel_names] ;
+    rico:title [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rdfs:label [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rico:title [holding.descriptions.parallel_names] @[holding.descriptions.language_code] ;
+	rdfs:label [holding.descriptions.parallel_names] @[holding.descriptions.language_code] ;
   	rico:scopeAndContent [holding.descriptions.abstract] @[holding.descriptions.language_code] ;
 	rico:hasInstantiation @ehri:Instantiation ;
  	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code]  ;
@@ -91,7 +91,7 @@ ehri:Instantiation ehri_instantiation:[instantiation_id] {
 ehri:Acquisition ehri_acquisition:[instantiation_id] {
 	a rico:Activity ;
 	rico:type "Acquisition" ;
-	rdf:value [holding.descriptions.acquisition] ;
+	rdf:value [holding.descriptions.acquisition] @[holding.descriptions.language_code] ;
 }
 
 ehri:Institution ehri_institution:[holding.archived_at] {
