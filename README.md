@@ -1,4 +1,4 @@
-# EHRI2LOD
+# EHRI2LOD [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8185859.svg)](https://doi.org/10.5281/zenodo.8185859)
 This is a project to download all the contents from the EHRI portal and transform them to Linked Open Data following the [Records in Context ontology](https://www.ica.org/standards/RiC/RiC-O_v0-2.html). The mapping rules try to align as much as possible to the EHRI data model (following EAD mostly) to the RiC data model. When this is not possible general vocabulary terms from [schema.org](https://schema.org/) are used. For particular terms that are only used inside the EHRI domain (mostly in the countries' information) custom predicates are used which at some point will be compiled into a custom and proper ontology.
 
 ## Before running the conversion
