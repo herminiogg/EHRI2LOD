@@ -1,5 +1,14 @@
-# EHRI2LOD [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8185859.svg)](https://doi.org/10.5281/zenodo.8185859)
+# EHRI2LOD 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8185859.svg)](https://doi.org/10.5281/zenodo.8185859)
+
 This is a project to download all the contents from the EHRI portal and transform them to Linked Open Data following the [Records in Context ontology](https://www.ica.org/standards/RiC/RiC-O_v0-2.html). The mapping rules try to align as much as possible to the EHRI data model (following EAD mostly) to the RiC data model. When this is not possible general vocabulary terms from [schema.org](https://schema.org/) are used. For particular terms that are only used inside the EHRI domain (mostly in the countries' information) custom predicates are used which at some point will be compiled into a custom and proper ontology.
+
+## Scientific publication
+This repository represents the companion data and software for our paper presented at ISWC 2023. Therefore, you can cite this repository when referring to the data but for scientific publications the preferred reference is:
+```
+García-González, H., & Bryant, M. (2023, October). The Holocaust Archival Material Knowledge Graph. 
+In International Semantic Web Conference (pp. 362-379). Cham: Springer Nature Switzerland.
+```
 
 ## Before running the conversion
 Have in mind that all the ShExML scripts use absolute paths, so you would have to update them to match your actual path. Since ShExML v0.2.7 relative paths are supported for local files, so you can expect this to be adapted in the future.
