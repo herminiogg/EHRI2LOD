@@ -10,12 +10,12 @@ shexml_first_part = r"""
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://example.com/>
-PREFIX ehri: <https://data.ehri-project.eu/>
-PREFIX ehri_country: <https://data.ehri-project.eu/countries/>
+PREFIX ehri: <http://lod.ehri-project-test.eu/>
+PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
 #TODO instutions with mixed paths
-PREFIX ehri_institution: <https://data.ehri-project.eu/institutions/>
-PREFIX ehri_units: <https://data.ehri-project.eu/units/>
-PREFIX ehri_cb: <https://data.ehri-project.eu/vocabularies/ehri-cb/>
+PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
+PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
+PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
@@ -63,7 +63,7 @@ ehri:Link ehri_units:[cbs.links.targets.unit_id] {
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.4.0.jar", "-m", i, "-o", output_filename])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.5.1.jar", "-m", i, "-o", output_filename, "-id", "-nu"])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)

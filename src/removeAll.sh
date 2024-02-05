@@ -7,11 +7,13 @@ rm allWithExtras.ttl
 rm camps.ttl
 rm cb.ttl
 rm countries.ttl
+rm ehri-terms.ttl
 rm ehri-camps.ttl
 rm ehri-ghettos.ttl
 rm ghettos.ttl
 rm holdings.ttl
 rm people.ttl
+rm terms.ttl
 
 echo "Removing folders..."
 

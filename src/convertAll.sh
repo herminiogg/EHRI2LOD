@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Downloading ShExML..."
+curl -OL https://github.com/herminiogg/ShExML/releases/download/v0.5.1/ShExML-v0.5.1.jar
+
 echo "Creating working folders..."
 sh createWorkingFolders.sh
 
@@ -7,10 +10,10 @@ echo "Downloading contents from the EHRI portal"
 python downloader.py
 
 echo "Converting countries..."
-java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates/EAD2SchemaorgLocalCountries.shexml -o countries.ttl
+java -Dfile.encoding=UTF8 -jar ShExML-v0.5.1.jar -m ShExMLTemplates/EAD2SchemaorgLocalCountries.shexml -o countries.ttl -id -nu
 
 echo "Converting institutions..."
-java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates/EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
+java -Dfile.encoding=UTF8 -jar ShExML-v0.5.1.jar -m ShExMLTemplates/EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl -id -nu
 
 echo "Converting holdings..."
 python createShExMLFilesForHoldings.py holdings
